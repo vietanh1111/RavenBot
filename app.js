@@ -841,6 +841,7 @@ function CreateAndAddTasks(jsonData) {
 }
 
 async function piggyBank(jsonData, extra_data = "") {
+    let objectPersons = ""
     let currentDate = getCurrentDate()
     var myData = {}
     myData[currentDate] = {}
@@ -849,12 +850,16 @@ async function piggyBank(jsonData, extra_data = "") {
     for (var member of Object.keys(team_member)) {
         if(jsonData.text.includes(team_member[member]["name"]) || jsonData.text.includes(team_member[member]["alias"])){
             myData[currentDate][team_member[member]["name"]] = 3
+            objectPersons += " " + team_member[member]["name"]
             self_report = false
         }
     }
 
-    if (self_report)
+    if (self_report) {
         myData[currentDate][jsonData["user_name"]] = 3
+        objectPersons += team_member[member]["name"]
+    }
+
 
     const fs = require('fs');
     let readDataStr = ""
@@ -877,7 +882,7 @@ async function piggyBank(jsonData, extra_data = "") {
         // printLog(arguments.callee.name, "2")
 
         push();
-        getPiggyBank(jsonData["user_name"], extra_data)
+        getPiggyBank(objectPersons, extra_data)
 
 
     } else {
@@ -982,7 +987,7 @@ app.post('/doTask', function (req, res) {
                 } else if (jsonData["text"].toLowerCase().startsWith("raven-piggybank:")) {
                     result = await piggyBank(jsonData)
                 } else if (jsonData["text"].toLowerCase().startsWith("raven-getpiggybank")) {
-                    result = await getPiggyBank(jsonData.user_name)
+                    result = await getPiggyBank(jsonData.user_name, "just_get")
                 }
 
             }

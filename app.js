@@ -488,7 +488,7 @@ async function sendReport(jsonData) {
 
         if (hours >= 10) {
             console.log("hello");
-            piggyBank(jsonData)
+            piggyBank(jsonData, "report_late")
         } else {
             console.log("It's not yet 10AM.");
         }
@@ -1008,6 +1008,7 @@ app.post('/doChatOpenAI_slash', function (req, res) {
         })
     }
 })
+
 async function getPiggyBank(current_user, extra_data = "") {
     let all_data = getUserDataFromFile(piggy_bank_path)
 
@@ -1020,7 +1021,7 @@ async function getPiggyBank(current_user, extra_data = "") {
         extra_data = "Cảm ơn " + team_member[current_user]["alias"] + " đã cống hiến thêm 3 chiếc bánh gà cho Piggy Bank."
     }
     let msg = extra_data + "\nDanh sách mạnh các thường quân:"
-        + "\n\n| Tên  | Số bánh gà | Note |"
+        + "\n\n| Tên  | Số bánh gà | Leaderboard |"
         + "\n|:-----------|:-----------:|:-----------------------------------------------|"
 
     for (var member of Object.keys(team_member)) {
@@ -1033,7 +1034,6 @@ async function getPiggyBank(current_user, extra_data = "") {
         }
         if (number_records > 0) {
             all_records[team_member[member]["alias"]] = number_records
-            msg = msg + "\n| " + team_member[member]["alias"] + " | " + number_records + " |  |"
         }
     }
 
@@ -1043,7 +1043,15 @@ async function getPiggyBank(current_user, extra_data = "") {
         return acc;
     }, {});
 
+    console.log("getPiggyBank")
     console.log(result)
+    let i = 1
+    for (let key in result) {
+        console.log(key);
+
+        msg = msg + "\n| " + key + " | " + result[key] + " | "+ "#" + i +" |"
+        i = i +1
+    }
     // printLog(arguments.callee.name, JSON.stringify(result, null, 3))
 
 

@@ -844,7 +844,7 @@ function CreateAndAddTasks(jsonData) {
     }
 }
 
-async function piggyBank(jsonData) {
+async function piggyBank(jsonData, extra_data = "") {
     printLog(arguments.callee.name, "piggyBank")
     var myname = jsonData["user_name"]
     var myData = {}
@@ -875,7 +875,7 @@ async function piggyBank(jsonData) {
         printLog(arguments.callee.name, "2")
 
         push();
-        getPiggyBank(myname)
+        getPiggyBank(myname, extra_data)
 
 
     } else {
@@ -1006,11 +1006,15 @@ app.post('/doChatOpenAI_slash', function (req, res) {
         })
     }
 })
-async function getPiggyBank(current_user) {
+async function getPiggyBank(current_user, extra_data = "") {
     let all_data = getUserDataFromFile(piggy_bank_path)
 
     let all_records = {}
-    let msg = "Cảm ơn " + team_member[current_user]["alias"] + " đã cống hiến thêm 3 chiếc bánh gà cho Piggy Bank. \nDanh sách mạnh các thường quân:"
+    let extra_data = ""
+    if (extra_data == "report_late"){
+        extra_data = "Bạn đã report quá muộn"
+    }
+    let msg = extra_data + ". Cảm ơn " + team_member[current_user]["alias"] + " đã cống hiến thêm 3 chiếc bánh gà cho Piggy Bank. \nDanh sách mạnh các thường quân:"
         + "\n\n| Tên  | Số bánh gà | Note |"
         + "\n|:-----------|:-----------:|:-----------------------------------------------|"
 

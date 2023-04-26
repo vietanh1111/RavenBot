@@ -844,15 +844,15 @@ function CreateAndAddTasks(jsonData) {
     }
 }
 
-async function piggyBank(jsonData, extra_data = "") {
-    // printLog(arguments.callee.name, "piggyBank")
+function piggyBank(jsonData, extra_data = "") {
+    printLog(arguments.callee.name, "piggyBank")
     var myname = jsonData["user_name"]
     var myData = {}
     let currentDate = getCurrentDate()
     myData[currentDate] = {}
     myData[currentDate][myname] = 3
 
-    // printLog(arguments.callee.name, JSON.stringify(myData, null, 3))
+    printLog(arguments.callee.name, JSON.stringify(myData, null, 3))
 
     const fs = require('fs');
     let readDataStr = ""
@@ -861,14 +861,14 @@ async function piggyBank(jsonData, extra_data = "") {
         readDataStr = fs.readFileSync(piggy_bank_path, 'utf8');
         readDataJson = JSON.parse(readDataStr);
     } catch (err) {
-        // printLog(arguments.callee.name, "have error")
+        printLog(arguments.callee.name, "have error")
     }
 
     const JSONObjectMerge = require("json-object-merge");
     const merged = JSONObjectMerge.default(readDataJson, myData);
 
     if (fs.existsSync(piggy_bank_path)) {
-        // printLog(arguments.callee.name, "existsSync")
+        printLog(arguments.callee.name, "existsSync")
         let myJSON = JSON.stringify(merged, null, 3);
         fs.writeFileSync(piggy_bank_path, myJSON)
         // printLog(arguments.callee.name, "1")

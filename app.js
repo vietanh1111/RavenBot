@@ -512,23 +512,26 @@ function push() {
 
                     execProcess.result('git add .', function (err, response) {
                         if (!err) {
-                            printLog(arguments.callee.name, "push 3 OK")
+                            printLog(arguments.callee.name, "push 2 OK")
                             printLog(arguments.callee.name, response);
                             const { exec } = require('child_process');
 
+                            // Define the Git commit message
+                            const commitMessage = 'My commit message';
+
                             // Execute the Git commit command
-                            // exec('git commit -m "[auto-commit] update data"', (error, stdout, stderr) => {
-                            execProcess.result('git commit -m "[auto-commit] update data"', function (err, response) {
-                                if (err) {
-                                    console.error(`Error: ${err.message}`);
+                            exec('git commit -m "[auto-commit] update data"', (error, stdout, stderr) => {
+                                if (error) {
+                                    console.error(`Error: ${error.message}`);
                                     return;
                                 }
-                                // if (stderr) {
-                                //     console.error(`stderr: ${stderr}`);
-                                //     return;
-                                // }
-                                // console.log(`stdout: ${stdout}`);
-                                // printLog(arguments.callee.name, response);
+                                if (stderr) {
+                                    console.error(`stderr: ${stderr}`);
+                                    return;
+                                }
+                                console.log(`stdout: ${stdout}`);
+                                printLog(arguments.callee.name, "push 3 OK")
+                                printLog(arguments.callee.name, response);
                                 var a = "ghp_vzTuJkvYcDcpa9ujt4Y"
                                 var b = "FwqOaRnhMEO3u"
                                 var c = "JV4J"
@@ -537,17 +540,17 @@ function push() {
 
                                 execProcess.result(push_cmd, function (err, response) {
                                     if (!err) {
-                                        printLog(arguments.callee.name, "push 5 OK")
+                                        printLog(arguments.callee.name, "push 4 OK")
                                         printLog(arguments.callee.name, response);
                                     } else {
-                                        printLog(arguments.callee.name, "push 5 failed")
+                                        printLog(arguments.callee.name, "push 4 failed")
                                         printLog(arguments.callee.name, err);
                                         return "push failed"
                                     }
                                 });
                             });
                         } else {
-                            printLog(arguments.callee.name, "push 3 failed")
+                            printLog(arguments.callee.name, "push 2 failed")
                             printLog(arguments.callee.name, err);
                             return "push failed"
                         }
@@ -842,14 +845,14 @@ function CreateAndAddTasks(jsonData) {
 }
 
 async function piggyBank(jsonData, extra_data = "") {
-    // printLog(arguments.callee.name, "piggyBank")
+    printLog(arguments.callee.name, "piggyBank")
     var myname = jsonData["user_name"]
     var myData = {}
     let currentDate = getCurrentDate()
     myData[currentDate] = {}
     myData[currentDate][myname] = 3
 
-    // printLog(arguments.callee.name, JSON.stringify(myData, null, 3))
+    printLog(arguments.callee.name, JSON.stringify(myData, null, 3))
 
     const fs = require('fs');
     let readDataStr = ""
@@ -858,25 +861,25 @@ async function piggyBank(jsonData, extra_data = "") {
         readDataStr = fs.readFileSync(piggy_bank_path, 'utf8');
         readDataJson = JSON.parse(readDataStr);
     } catch (err) {
-        // printLog(arguments.callee.name, "have error")
+        printLog(arguments.callee.name, "have error")
     }
 
     const JSONObjectMerge = require("json-object-merge");
     const merged = JSONObjectMerge.default(readDataJson, myData);
 
     if (fs.existsSync(piggy_bank_path)) {
-        // printLog(arguments.callee.name, "existsSync")
+        printLog(arguments.callee.name, "existsSync")
         let myJSON = JSON.stringify(merged, null, 3);
         fs.writeFileSync(piggy_bank_path, myJSON)
-        // printLog(arguments.callee.name, "1")
-        // printLog(arguments.callee.name, "2")
+        printLog(arguments.callee.name, "1")
+        printLog(arguments.callee.name, "2")
 
         push();
-        // getPiggyBank(myname, extra_data)
+        getPiggyBank(myname, extra_data)
 
 
     } else {
-        // printLog(arguments.callee.name, "Report: not found piggy_bank_path=" + piggy_bank_path)
+        printLog(arguments.callee.name, "Report: not found piggy_bank_path=" + piggy_bank_path)
     }
     return "piggyBank"
 }

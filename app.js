@@ -476,7 +476,7 @@ async function sendReport(jsonData) {
             printLog(arguments.callee.name, "1")
             printLog(arguments.callee.name, "2")
 
-            push();
+            //push();
 
         } else {
             printLog(arguments.callee.name, "Report: not found data_path=" + data_path)
@@ -516,9 +516,6 @@ function push() {
                             printLog(arguments.callee.name, response);
                             const { exec } = require('child_process');
 
-                            // Define the Git commit message
-                            const commitMessage = 'My commit message';
-
                             // Execute the Git commit command
                             // exec('git commit -m "[auto-commit] update data"', (error, stdout, stderr) => {
                             execProcess.result('git commit -m "[auto-commit] update data"', function (err, response) {
@@ -531,8 +528,7 @@ function push() {
                                 //     return;
                                 // }
                                 // console.log(`stdout: ${stdout}`);
-                                printLog(arguments.callee.name, "push 4 OK")
-                                printLog(arguments.callee.name, response);
+                                // printLog(arguments.callee.name, response);
                                 var a = "ghp_vzTuJkvYcDcpa9ujt4Y"
                                 var b = "FwqOaRnhMEO3u"
                                 var c = "JV4J"
@@ -551,7 +547,7 @@ function push() {
                                 });
                             });
                         } else {
-                            printLog(arguments.callee.name, "push 2 failed")
+                            printLog(arguments.callee.name, "push 3 failed")
                             printLog(arguments.callee.name, err);
                             return "push failed"
                         }

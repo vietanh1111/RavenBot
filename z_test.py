@@ -58,7 +58,11 @@ elif sys.argv[1] == 'doChat':
     data["user_name"] = "anh.nguyenviet6"
     myobj = data
     # url = 'http://127.0.0.1:3000/doHelp'
-
+elif sys.argv[1] == 'doPiggy':
+    data = {}
+    data["text"] = 'raven-piggybank:'
+    data["user_name"] = "trung.maiduc2"
+    myobj = data
 elif sys.argv[1] == 'doCreateVersion':
     data = {}
     # data["text"] = 'Raven-jira: create\ngame_version:7.3.0eb\nepic_link:DMLCNQA-1651'

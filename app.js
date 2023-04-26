@@ -58,31 +58,31 @@ app.use(function (req, res, next) {
 });
 
 team_member = {
-    "Anh Nguyen Viet 6": {
+    "anh.nguyenviet6": {
         "name": "anh.nguyenviet6",
         "alias": "vietanh6"
     },
-    "Quy Nguyen Ngoc": {
+    "quy.nguyenngoc": {
         "name": "quy.nguyenngoc",
         "alias": "quynn"
     },
-    "Duc Luu Trong": {
+    "duc.luutrong": {
         "name": "duc.luutrong",
         "alias": "ducdoo"
     },
-    "Trung Mai Duc 2": {
+    "trung.maiduc2": {
         "name": "trung.maiduc2",
         "alias": "trungtrau"
     },
-    "Giang Trinh Thuy": {
+    "giang.trinhthuy": {
         "name": "giang.trinhthuy",
         "alias": "alextrinh"
     },
-    "Anh Bui Thi Ngoc": {
+    "anh.buithingoc": {
         "name": "anh.buithingoc",
         "alias": "ngocanh"
     },
-    "Thao Le Thi Thu": {
+    "thao.lethithu": {
         "name": "thao.lethithu",
         "alias": "mika"
     }
@@ -92,12 +92,12 @@ const port = process.env.PORT || 3000
 const data_path = "./member_data.json";
 const piggy_bank_path = "./data/piggy_bank.json";
 
-function getUserDataFromFile() {
+function getUserDataFromFile(file_path) {
 
     let readDataStr = ""
     let readDataJson = ""
     try {
-        readDataStr = fs.readFileSync('./member_data.json', 'utf8')
+        readDataStr = fs.readFileSync(file_path, 'utf8')
         readDataJson = JSON.parse(readDataStr)
     } catch (err) {
     }
@@ -107,7 +107,7 @@ function getUserDataFromFile() {
 
 function getMemberMissingRecord() {
     let missingRec = []
-    let membersData = getUserDataFromFile()
+    let membersData = getUserDataFromFile(data_path)
     for (var member of Object.keys(team_member)) {
         team_member_email = team_member[member]["email"]
         number_records = 0
@@ -136,7 +136,7 @@ function getDestinationMMUrl() {
 
 //
 function getNumRecords() {
-    let all_data = getUserDataFromFile()
+    let all_data = getUserDataFromFile(data_path)
 
     let all_records = {}
 
@@ -163,7 +163,7 @@ function getNumRecords() {
 }
 
 function getUserScore() {
-    let all_data = getUserDataFromFile()
+    let all_data = getUserDataFromFile(data_path)
 
     let all_records = {}
 
@@ -414,7 +414,7 @@ async function postContest() {
 function getRecords() {
     let missRec = []
     let doneRec = []
-    let membersData = getUserDataFromFile()
+    let membersData = getUserDataFromFile(data_path)
     for (var member of Object.keys(team_member)) {
         team_member_email = team_member[member]["name"]
         number_records = 0
@@ -481,6 +481,17 @@ async function sendReport(jsonData) {
         } else {
             printLog(arguments.callee.name, "Report: not found data_path=" + data_path)
         }
+
+        const now = new Date().toLocaleString("en-US", { timeZone: "Asia/Bangkok" });
+        const hours = new Date(now).getHours();
+
+        if (hours >= 10) {
+            console.log("hello");
+            piggyBank(jsonData)
+        } else {
+            console.log("It's not yet 10AM.");
+        }
+
         return "sendReport done"
     } else {
         return "sendReport failed"
@@ -833,52 +844,44 @@ function CreateAndAddTasks(jsonData) {
     }
 }
 
-// table
-// name - amount - date
-
-//      - total amount - 
 async function piggyBank(jsonData) {
     printLog(arguments.callee.name, "piggyBank")
-    if (jsonData.text.toLowerCase().startsWith("raven-piggybank:")) {
-        let regex = /raven-piggybank:/gi;
-        var membersData = jsonData["text"].replace(regex, "").split('\n');
-        var myname = ""
-        var myData = {}
-        let currentDate = getCurrentDate()
-        myData[currentDate] = {}
-        myData[currentDate][myname] = {}
+    var myname = jsonData["user_name"]
+    var myData = {}
+    let currentDate = getCurrentDate()
+    myData[currentDate] = {}
+    myData[currentDate][myname] = 3
 
-        printLog(arguments.callee.name, JSON.stringify(myData, null, 3))
+    printLog(arguments.callee.name, JSON.stringify(myData, null, 3))
 
-        const fs = require('fs');
-        let readDataStr = ""
-        let readDataJson = {}
-        try {
-            readDataStr = fs.readFileSync(piggy_bank_path, 'utf8');
-            readDataJson = JSON.parse(readDataStr);
-        } catch (err) {
-            printLog(arguments.callee.name, "have error")
-        }
-
-        const JSONObjectMerge = require("json-object-merge");
-        const merged = JSONObjectMerge.default(readDataJson, myData);
-
-        if (fs.existsSync(piggy_bank_path)) {
-            printLog(arguments.callee.name, "existsSync")
-            let myJSON = JSON.stringify(merged, null, 3);
-            fs.writeFileSync(piggy_bank_path, myJSON)
-            printLog(arguments.callee.name, "1")
-            printLog(arguments.callee.name, "2")
-
-            push();
-
-        } else {
-            printLog(arguments.callee.name, "Report: not found piggy_bank_path=" + piggy_bank_path)
-        }
-        return "sendReport done"
-    } else {
-        return "sendReport failed"
+    const fs = require('fs');
+    let readDataStr = ""
+    let readDataJson = {}
+    try {
+        readDataStr = fs.readFileSync(piggy_bank_path, 'utf8');
+        readDataJson = JSON.parse(readDataStr);
+    } catch (err) {
+        printLog(arguments.callee.name, "have error")
     }
+
+    const JSONObjectMerge = require("json-object-merge");
+    const merged = JSONObjectMerge.default(readDataJson, myData);
+
+    if (fs.existsSync(piggy_bank_path)) {
+        printLog(arguments.callee.name, "existsSync")
+        let myJSON = JSON.stringify(merged, null, 3);
+        fs.writeFileSync(piggy_bank_path, myJSON)
+        printLog(arguments.callee.name, "1")
+        printLog(arguments.callee.name, "2")
+
+        push();
+        getPiggyBank(myname)
+
+
+    } else {
+        printLog(arguments.callee.name, "Report: not found piggy_bank_path=" + piggy_bank_path)
+    }
+    return "piggyBank"
 }
 
 
@@ -1000,7 +1003,41 @@ app.post('/doChatOpenAI_slash', function (req, res) {
         })
     }
 })
+function getPiggyBank(current_user) {
+    let all_data = getUserDataFromFile(piggy_bank_path)
 
+    let all_records = {}
+    let msg = "Cảm ơn " + team_member[current_user]["alias"] + " đã cống hiến thêm 3 chiếc bánh gà cho Piggy Bank. \nDanh sách mạnh các thường quân:"
+        + "\n\n| Tên  | Số bánh gà | Note |"
+        + "\n|:-----------|:-----------:|:-----------------------------------------------|"
+
+    for (var member of Object.keys(team_member)) {
+        team_member_email = team_member[member]["name"]
+        number_records = 0
+        for (var date of Object.keys(all_data)) {
+            if (all_data[date][team_member[member]["name"]]) {
+                number_records += 3
+            }
+        }
+        if (number_records > 0) {
+            all_records[team_member[member]["alias"]] = number_records
+            msg = msg + "\n| " + team_member[member]["alias"] + " | " + number_records + " |  |"
+        }
+    }
+
+    var sortedData = Object.entries(all_records).sort((a, b) => b[1] - a[1]);
+    const result = sortedData.reduce((acc, item) => {
+        acc[item[0]] = item[1];
+        return acc;
+    }, {});
+
+    printLog(arguments.callee.name, JSON.stringify(result, null, 3))
+
+
+
+    sendMessageToMM(msg)
+    return result
+}
 
 var server = app.listen(port, function () {
     var host = server.address().address

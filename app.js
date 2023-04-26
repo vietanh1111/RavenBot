@@ -80,7 +80,7 @@ team_member = {
     },
     "anh.buithingoc": {
         "name": "anh.buithingoc",
-        "alias": "ngocanh"
+        "alias": "chiAnh"
     },
     "thao.lethithu": {
         "name": "thao.lethithu",
@@ -1020,8 +1020,8 @@ async function getPiggyBank(current_user, extra_data = "") {
     } else {
         extra_data = "Cảm ơn " + team_member[current_user]["alias"] + " đã cống hiến thêm 3 chiếc bánh gà cho Piggy Bank."
     }
-    let msg = extra_data + "\nDanh sách mạnh các thường quân:"
-        + "\n\n| Tên  | Số bánh gà | Leaderboard |"
+    let msg = extra_data + "\nDanh sách mạnh các thường quân, Leaderboard:"
+        + "\n\n| Tên  | Số bánh gà | # |"
         + "\n|:-----------|:-----------:|:-----------------------------------------------|"
 
     for (var member of Object.keys(team_member)) {
@@ -1049,7 +1049,7 @@ async function getPiggyBank(current_user, extra_data = "") {
     for (let key in result) {
         console.log(key);
 
-        msg = msg + "\n| " + key + " | " + result[key] + " | "+ "#" + i +" |"
+        msg = msg + "\n| " + key + " | " + result[key] + " | " + i +" |"
         i = i +1
     }
     // printLog(arguments.callee.name, JSON.stringify(result, null, 3))

@@ -512,13 +512,9 @@ function push() {
 
                     execProcess.result('git add .', function (err, response) {
                         if (!err) {
-                            printLog(arguments.callee.name, "push 2 OK")
+                            printLog(arguments.callee.name, "push 3 OK")
                             printLog(arguments.callee.name, response);
                             const { exec } = require('child_process');
-
-                            // Define the Git commit message
-                            const commitMessage = 'My commit message';
-
                             // Execute the Git commit command
                             exec('git commit -m "[auto-commit] update data"', (error, stdout, stderr) => {
                                 if (error) {
@@ -530,7 +526,6 @@ function push() {
                                     return;
                                 }
                                 console.log(`stdout: ${stdout}`);
-                                printLog(arguments.callee.name, "push 3 OK")
                                 printLog(arguments.callee.name, response);
                                 var a = "ghp_vzTuJkvYcDcpa9ujt4Y"
                                 var b = "FwqOaRnhMEO3u"
@@ -550,7 +545,7 @@ function push() {
                                 });
                             });
                         } else {
-                            printLog(arguments.callee.name, "push 2 failed")
+                            printLog(arguments.callee.name, "push 3 failed")
                             printLog(arguments.callee.name, err);
                             return "push failed"
                         }

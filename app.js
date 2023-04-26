@@ -1010,11 +1010,10 @@ async function getPiggyBank(current_user, extra_data = "") {
     let all_data = getUserDataFromFile(piggy_bank_path)
 
     let all_records = {}
-    let extra_data = ""
     if (extra_data == "report_late"){
-        extra_data = "Bạn đã report quá muộn"
+        extra_data = "Bạn đã report quá muộn. "
     }
-    let msg = extra_data + ". Cảm ơn " + team_member[current_user]["alias"] + " đã cống hiến thêm 3 chiếc bánh gà cho Piggy Bank. \nDanh sách mạnh các thường quân:"
+    let msg = extra_data + "Cảm ơn " + team_member[current_user]["alias"] + " đã cống hiến thêm 3 chiếc bánh gà cho Piggy Bank. \nDanh sách mạnh các thường quân:"
         + "\n\n| Tên  | Số bánh gà | Note |"
         + "\n|:-----------|:-----------:|:-----------------------------------------------|"
 

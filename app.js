@@ -1037,7 +1037,7 @@ async function getPiggyBank(current_user, extra_data = "") {
         return acc;
     }, {});
 
-    printLog(arguments.callee.name, JSON.stringify(result, null, 3))
+    // printLog(arguments.callee.name, JSON.stringify(result, null, 3))
 
 
 

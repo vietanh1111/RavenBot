@@ -979,7 +979,10 @@ app.post('/doTask', function (req, res) {
                     result = await sendMsgToRavenRoom()
                 } else if (jsonData["text"].toLowerCase().startsWith("raven-piggybank:")) {
                     result = await piggyBank(jsonData)
+                } else if (jsonData["text"].toLowerCase().startsWith("raven-getpiggybank")) {
+                    result = await getPiggyBank(jsonData.user_name)
                 }
+
             }
 
             res.end(result)
@@ -1003,7 +1006,7 @@ app.post('/doChatOpenAI_slash', function (req, res) {
         })
     }
 })
-function getPiggyBank(current_user) {
+async function getPiggyBank(current_user) {
     let all_data = getUserDataFromFile(piggy_bank_path)
 
     let all_records = {}

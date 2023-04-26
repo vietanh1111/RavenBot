@@ -877,7 +877,7 @@ async function piggyBank(jsonData, extra_data = "") {
         // printLog(arguments.callee.name, "2")
 
         push();
-        getPiggyBank(myname, extra_data)
+        getPiggyBank(jsonData["user_name"], extra_data)
 
 
     } else {

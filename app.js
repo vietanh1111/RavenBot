@@ -522,14 +522,14 @@ function push() {
                             // Execute the Git commit command
                             // exec('git commit -m "[auto-commit] update data"', (error, stdout, stderr) => {
                             execProcess.result('git commit -m "[auto-commit] update data"', function (err, response) {
-                                if (error) {
+                                if (err) {
                                     console.error(`Error: ${error.message}`);
                                     return;
                                 }
-                                if (stderr) {
-                                    console.error(`stderr: ${stderr}`);
-                                    return;
-                                }
+                                // if (stderr) {
+                                //     console.error(`stderr: ${stderr}`);
+                                //     return;
+                                // }
                                 console.log(`stdout: ${stdout}`);
                                 printLog(arguments.callee.name, "push 4 OK")
                                 printLog(arguments.callee.name, response);

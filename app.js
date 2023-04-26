@@ -118,6 +118,7 @@ function getMemberMissingRecord() {
     return missingRec
 }
 
+
 function getCurrentDate() {
     const date = new Date();
     let day = date.getDate();
@@ -840,14 +841,20 @@ function CreateAndAddTasks(jsonData) {
 }
 
 async function piggyBank(jsonData, extra_data = "") {
-    // printLog(arguments.callee.name, "piggyBank")
-    var myname = jsonData["user_name"]
-    var myData = {}
     let currentDate = getCurrentDate()
+    var myData = {}
     myData[currentDate] = {}
-    myData[currentDate][myname] = 3
 
-    // printLog(arguments.callee.name, JSON.stringify(myData, null, 3))
+    let self_report = true;
+    for (var member of Object.keys(team_member)) {
+        if(jsonData.text.includes(team_member[member]["name"]) || jsonData.text.includes(team_member[member]["alias"])){
+            myData[currentDate][team_member[member]["name"]] = 3
+            self_report = false
+        }
+    }
+
+    if (self_report)
+        myData[currentDate][jsonData["user_name"]] = 3
 
     const fs = require('fs');
     let readDataStr = ""
@@ -1005,14 +1012,14 @@ async function getPiggyBank(current_user, extra_data = "") {
     let all_data = getUserDataFromFile(piggy_bank_path)
 
     let all_records = {}
-    if (extra_data == "report_late"){
+    if (extra_data == "report_late") {
         extra_data = "Bạn đã report quá muộn. " + "Cảm ơn " + team_member[current_user]["alias"] + " đã cống hiến thêm 3 chiếc bánh gà cho Piggy Bank."
-    } else if(extra_data == "just_get") {
+    } else if (extra_data == "just_get") {
         extra_data = ""
     } else {
         extra_data = "Cảm ơn " + team_member[current_user]["alias"] + " đã cống hiến thêm 3 chiếc bánh gà cho Piggy Bank."
     }
-    let msg = extra_data  + "\nDanh sách mạnh các thường quân:"
+    let msg = extra_data + "\nDanh sách mạnh các thường quân:"
         + "\n\n| Tên  | Số bánh gà | Note |"
         + "\n|:-----------|:-----------:|:-----------------------------------------------|"
 

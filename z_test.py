@@ -12,7 +12,7 @@ if sys.argv[1] == 'doReport':
     print(sys.argv[1])
     data = {}
     data["text"] = "Reporting for anh.nguyenviet6@**.com:\n- Update UC and 333 SDK"
-    data["user_name"] = "anh.nguyenviet6"
+    data["user_name"] = "trung.maiduc2"
     myobj = data
 elif sys.argv[1] == 'doRavenChat':
     print("asdasds")

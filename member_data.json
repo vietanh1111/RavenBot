@@ -2429,6 +2429,11 @@
          "reports": [
             "- Update UC and 333 SDK"
          ]
+      },
+      "trung.maiduc2": {
+         "reports": [
+            "- Update UC and 333 SDK"
+         ]
       }
    }
 }

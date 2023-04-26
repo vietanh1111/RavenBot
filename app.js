@@ -512,7 +512,7 @@ function push() {
 
                     execProcess.result('git add .', function (err, response) {
                         if (!err) {
-                            printLog(arguments.callee.name, "push 2 OK")
+                            printLog(arguments.callee.name, "push 3 OK")
                             printLog(arguments.callee.name, response);
                             const { exec } = require('child_process');
 
@@ -520,7 +520,8 @@ function push() {
                             const commitMessage = 'My commit message';
 
                             // Execute the Git commit command
-                            exec('git commit -m "[auto-commit] update data"', (error, stdout, stderr) => {
+                            // exec('git commit -m "[auto-commit] update data"', (error, stdout, stderr) => {
+                            execProcess.result('git commit -m "[auto-commit] update data"', function (err, response) {
                                 if (error) {
                                     console.error(`Error: ${error.message}`);
                                     return;
@@ -530,7 +531,7 @@ function push() {
                                     return;
                                 }
                                 console.log(`stdout: ${stdout}`);
-                                printLog(arguments.callee.name, "push 3 OK")
+                                printLog(arguments.callee.name, "push 4 OK")
                                 printLog(arguments.callee.name, response);
                                 var a = "ghp_vzTuJkvYcDcpa9ujt4Y"
                                 var b = "FwqOaRnhMEO3u"
@@ -540,10 +541,10 @@ function push() {
 
                                 execProcess.result(push_cmd, function (err, response) {
                                     if (!err) {
-                                        printLog(arguments.callee.name, "push 4 OK")
+                                        printLog(arguments.callee.name, "push 5 OK")
                                         printLog(arguments.callee.name, response);
                                     } else {
-                                        printLog(arguments.callee.name, "push 4 failed")
+                                        printLog(arguments.callee.name, "push 5 failed")
                                         printLog(arguments.callee.name, err);
                                         return "push failed"
                                     }
@@ -868,7 +869,7 @@ async function piggyBank(jsonData, extra_data = "") {
     const merged = JSONObjectMerge.default(readDataJson, myData);
 
     if (fs.existsSync(piggy_bank_path)) {
-        printLog(arguments.callee.name, "existsSync")
+        // printLog(arguments.callee.name, "existsSync")
         let myJSON = JSON.stringify(merged, null, 3);
         fs.writeFileSync(piggy_bank_path, myJSON)
         // printLog(arguments.callee.name, "1")

@@ -1023,7 +1023,7 @@ async function getPiggyBank(current_user, extra_data = "") {
     } else if (extra_data == "just_get") {
         extra_data = ""
     } else {
-        extra_data = "Cảm ơn " + team_member[current_user]["alias"] + " đã cống hiến thêm 3 chiếc bánh gà cho Piggy Bank."
+        extra_data = "Cảm ơn " + current_user + " đã cống hiến thêm 3 chiếc bánh gà cho Piggy Bank."
     }
     let msg = extra_data + "\nDanh sách mạnh các thường quân, Leaderboard:"
         + "\n\n| Tên  | Số bánh gà | # |"

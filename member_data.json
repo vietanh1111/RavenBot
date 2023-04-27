@@ -2126,37 +2126,42 @@
          "reports": [
             "• Refix DMLCNQA-687",
             "• Write doc tracking"
-         ]
+         ],
+         "score": 6
       },
       "quy.nguyenngoc": {
          "reports": [
             " - Fix ~~jenkins~~ HPK build error"
-         ]
+         ],
+         "score": 6
       },
       "trung.maiduc2": {
          "reports": [
             "- Read Huawei shop API and use it to map openid with playerID",
             ""
-         ]
+         ],
+         "score": 6
       },
       "duc.luutrong": {
          "reports": [
             "- Refactor code for skill dragon"
-         ]
+         ],
+         "score": 6.5
       },
       "giang.trinhthuy": {
          "reports": [
             "+ Implement Fruit-Ninja-like spawning for projectiles (cont)"
-         ]
+         ],
+         "score": 6.5
       }
    },
    "2023-4-12": {
-      "thao.lethithu": {},
       "trung.maiduc2": {
          "reports": [
             "- Find the way to use openID to generate new credential in huawei. ",
             "- Find the way to link new credential with old credential "
-         ]
+         ],
+         "score": 6.5
       },
       "anh.buithingoc": {
          "reports": [
@@ -2164,23 +2169,27 @@
             "• Solve error build ",
             "• Refix DMLCNQA-687",
             "• Write doc tracking"
-         ]
+         ],
+         "score": 6.5
       },
       "quy.nguyenngoc": {
          "reports": [
             " - do NF task I guess :feels_late_man: "
-         ]
+         ],
+         "score": 6
       },
       "anh.nguyenviet6": {
          "reports": [
             "- Merge upd 63.5 to new feature",
             "- Planning for Huawei openid"
-         ]
+         ],
+         "score": 7
       },
       "duc.luutrong": {
          "reports": [
             "- Refactor code for implement dragon boss attack"
-         ]
+         ],
+         "score": 7
       }
    },
    "2023-4-13": {
@@ -2188,41 +2197,48 @@
          "reports": [
             "• Refix DMLCNQA-687",
             "• PP for tracking"
-         ]
+         ],
+         "score": 6
       },
       "giang.trinhthuy": {
          "reports": [
             "+ Change control to: drag to move, touch to jump",
             "+ Implement stage timer"
-         ]
+         ],
+         "score": 7
       },
       "duc.luutrong": {
          "reports": [
             "- Finish refactor code for attack",
             "- Fixed build"
-         ]
+         ],
+         "score": 7
       },
       "anh.nguyenviet6": {
          "reports": [
             "- fix crash game server and notify iOS team for deploy new server",
             "- find way to hack sigils"
-         ]
+         ],
+         "score": 7
       },
       "quy.nguyenngoc": {
          "reports": [
             " - add Dragon Arcade entry to FreeCashBalloon"
-         ]
+         ],
+         "score": 6.5
       },
       "thao.lethithu": {
          "reports": [
             "- Working on Dragon Race UI"
-         ]
+         ],
+         "score": 7
       },
       "trung.maiduc2": {
          "reports": [
             "- Find the way to create new anonymous from openId",
             "- Solve CC"
-         ]
+         ],
+         "score": 7
       }
    },
    "2023-4-14": {
@@ -2230,32 +2246,37 @@
          "reports": [
             "• Refix DMLCNQA-687",
             "• PP for tracking"
-         ]
+         ],
+         "score": 6
       },
       "anh.nguyenviet6": {
          "reports": [
             "- investigation sigils and contact to iOS team for fixing (DONE)",
             "- meeting pre-Postmotern",
             "- support around"
-         ]
+         ],
+         "score": 7
       },
       "quy.nguyenngoc": {
          "reports": [
             " - add Dragon Arcade entry to FreeCashBalloon (cont)",
             " - IIG English class"
-         ]
+         ],
+         "score": 6
       },
       "trung.maiduc2": {
          "reports": [
             "- Resolve CC (cont)",
             "- Recheck all hacking gems accounts",
             "- Continue finding ways to create new anonymous on hpk"
-         ]
+         ],
+         "score": 7
       },
       "thao.lethithu": {
          "reports": [
             "- Continue working on NF Dragon Race UI"
-         ]
+         ],
+         "score": 7
       }
    },
    "2023-4-17": {
@@ -2265,12 +2286,14 @@
             "- add document for mattermost: https://confluence.**.org/display/GLHN/%5BDML%5D%5BCN%5D+Use+Mattermost+Effectively",
             "- prepare for sharing sigil cheating",
             "- support around"
-         ]
+         ],
+         "score": 7
       },
       "duc.luutrong": {
          "reports": [
             "- Complete create trajectory for projectile"
-         ]
+         ],
+         "score": 7
       },
       "trung.maiduc2": {
          "reports": [
@@ -2279,25 +2302,29 @@
             "- Continue doing Huawei task: change playerid into openid",
             "- Read prototype of NF and try to do it",
             ""
-         ]
+         ],
+         "score": 7.5
       },
       "giang.trinhthuy": {
          "reports": [
             "+ Remove level-up notification",
             "+ Implement dragon evolution",
             "+ Implement different controls for different evolutions"
-         ]
+         ],
+         "score": 7.5
       },
       "anh.buithingoc": {
          "reports": [
             "• Refix DMLCNQA-687",
             "• PP for tracking"
-         ]
+         ],
+         "score": 6
       },
       "thao.lethithu": {
          "reports": [
             "- Continue working on NF Dragon Race"
-         ]
+         ],
+         "score": 6.5
       }
    },
    "2023-4-18": {
@@ -2307,8 +2334,29 @@
             "• PP for tracking",
             "• Learn C",
             ""
-         ]
+         ],
+         "score": 6
       },
+      "quy.nguyenngoc": {
+         "reports": [
+            " - find assets for Dragon Flappy",
+            "IIG English class"
+         ],
+         "score": 6
+      },  
+      "trung.maiduc2": {
+         "reports": [
+            "- doing Huawei task changing playerId into openId"
+         ],
+         "score": 6.5
+      },         
+      "duc.luutrong": {
+         "reports": [
+            "- Bounding projectile with screene",
+            "Optimize code"
+         ],
+         "score": 7
+      },       
       "anh.nguyenviet6": {
          "reports": [
             "- Meeting devs",
@@ -2316,30 +2364,57 @@
             "- Fix wrong tracking on SF and commit OG tracking",
             "- Prepare sharing sigil error",
             "- Check reject OPPO"
-         ]
+         ],
+         "score": 7
       },
       "giang.trinhthuy": {
          "reports": [
             "+ Implement different controls for different evolutions (cont)"
-         ]
+         ],
+         "score": 7
       }
    },
    "2023-4-19": {
+      "anh.nguyenviet6": {
+         "reports": [
+            "- check reject oppo",
+            "- refactor privacy policy to easy for trigger policy dialog",
+            "- non-project: support mtl phantom on premake includedirs enviroment"
+         ],
+         "score": 7
+      },      
+      "anh.buithingoc": {
+         "reports": [
+            "PP for tracking done",
+            "• Learn C"
+         ],
+         "score": 6.5
+      },    
+      "duc.luutrong": {
+         "reports": [
+            "Optimize moving for dragon",
+            "Fixed some issue when bounding the egg projectile with screen"
+         ],
+         "score": 7
+      },         
       "quy.nguyenngoc": {
          "reports": [
             " - check Game Portal flow"
-         ]
+         ],
+         "score": 7
       },
       "thao.lethithu": {
          "reports": [
             "- Working on UI result for NF Dragon Race"
-         ]
+         ],
+         "score": 7
       },
       "trung.maiduc2": {
          "reports": [
             "- Checking Huawei blackscreen related to HMS Core",
             "- Continue doing Huawei task changing playerId into openId"
-         ]
+         ],
+         "score": 7
       }
    },
    "2023-4-20": {
@@ -2347,96 +2422,289 @@
          "reports": [
             "- Handle Oppo reject",
             "- Setup for hanbld0555"
-         ]
+         ],
+         "score": 7
       },
       "anh.buithingoc": {
          "reports": [
             "• PP for tracking done",
             "• Learn C"
-         ]
+         ],
+         "score": 6
       },
+      "duc.luutrong": {
+         "reports": [
+            "Optimize moving for boss also player's dragon",
+            "Research to implement health system"
+         ],
+         "score": 7.5
+      },       
       "thao.lethithu": {
          "reports": [
             "- Implement skill for dragons in Dragon Race"
-         ]
+         ],
+         "score": 6.5
       }
    },
    "2023-4-21": {
+      "anh.buithingoc": {
+         "reports": [
+            "Update credit for new members done",
+            "Learn C"
+         ],
+         "score": 6.5
+      },      
       "giang.trinhthuy": {
          "reports": [
             "+ Update projectile physics",
             "+ CompliancyLib workshop"
-         ]
+         ],
+         "score": 7.5
       },
+      "duc.luutrong": {
+         "reports": [
+            "Implement Health system"
+         ],
+         "score": 6.5
+      },       
+      "trung.maiduc2": {
+         "reports": [
+            "- Continue doing Huawei task changing playerId into openId",
+            "join workshops"
+         ],
+         "score": 7
+      },  
+      "anh.nguyenviet6": {
+         "reports": [
+            "- Lead dev meeting",
+            "- Prepare ws sigil cheating",
+            "Check new sdks: have 360 + meizu",
+            "Setup new build machine"
+         ],
+         "score": 7
+      },          
       "quy.nguyenngoc": {
          "reports": [
             " - Add Third Party SDK Policy to Game Portal ",
             " - IIG english class",
             " - prepare iris online class"
-         ]
-      }
+         ],
+         "score": 6.5
+      },
+      "thao.lethithu": {
+         "reports": [
+            "- continue working on dragon elements in NF Dragon Race"
+         ],
+         "score": 6.5
+      }      
    },
    "2023-4-24": {
+      "anh.nguyenviet6": {
+         "reports": [
+            "Resolve reject Huawei by black screen when backkey on login huawei",
+            "sharing sigil issue",
+            "setup new build machine(jenkins config and measure performance)"
+         ],
+         "score": 7
+      },      
       "anh.buithingoc": {
          "reports": [
             "",
             "Workshop tracking",
             "Update, build new src and learn C"
-         ]
+         ],
+         "score": 6.5
       },
+      "trung.maiduc2": {
+         "reports": [
+            "Workshop to share about gem cheating",
+            "Trying to change on Huawei to use openID"
+         ],
+         "score": 7
+      },       
       "quy.nguyenngoc": {
          "reports": [
             " - Add Third Party SDK Policy to Game Portal ",
             " - prepare iris online class"
-         ]
+         ],
+         "score": 6.5
       },
       "giang.trinhthuy": {
          "reports": [
             "+ Update projectile physics (cont)"
-         ]
-      }
+         ],
+         "score": 6.5
+      },
+      "duc.luutrong": {
+         "reports": [
+            "Finish interacting between dragon and projectile",
+            "Try to fix some issue"
+         ],
+         "score": 7
+      },        
+      "thao.lethithu": {
+         "reports": [
+            "Dragon elements for NF Dragon Race (cont)",
+            "Learn C++ (prepare for C++ testing)"
+         ],
+         "score": 7
+      }      
    },
    "2023-4-25": {
+      "trung.maiduc2": {
+         "reports": [
+            "Workshop to share about gem cheating",
+            "Trying to change on Huawei to use openID",
+            "Joining meetings",
+            "Joining post moterm"
+         ],
+         "score": 7
+      },     
+      "quy.nguyenngoc": {
+         "reports": [
+            " - meeting",
+            " - meeting",
+            " - meeting",
+            " - IIG english class",
+            " - post mortem meeting",
+            " - Add Third Party SDK Policy to Game Portal"
+         ],
+         "score": 6.5
+      },       
+      "anh.buithingoc": {
+         "reports": [
+            "Workshop tracking done",
+            "Add button to group some buttons about privacy policy",
+            "Learn C"
+         ],
+         "score": 6.5
+      },        
       "anh.nguyenviet6": {
          "reports": [
             "- weekly: dev meeting",
             "- join dev sharing knowledge",
             "- join brainstorm",
             "- update dev tasks: https://confluence.**.org/pages/viewpage.action?spaceKey=GLHN&title=%5BDML%5D%5BCN%5D+DEV+Tasks"
-         ]
+         ],
+         "score": 7
       },
       "duc.luutrong": {
          "reports": [
             "- Meeting: dev, GD",
             "- Try to resolve some issue related shooting"
-         ]
+         ],
+         "score": 7
       },
       "giang.trinhthuy": {
          "reports": [
             "+ Update projectile physics (again  :pepedie: )"
-         ]
+         ],
+         "score": 7
       },
       "thao.lethithu": {
          "reports": [
             "- Meeting",
             "- NF Dragon Race: research to work with new game ideas",
             "- Unity training task: One more fish project"
-         ]
+         ],
+         "score": 7
       }
    },
    "2023-4-26": {
+      "trung.maiduc2": {
+         "reports": [
+            "Meeting (post moterm)",
+            "Trace and find the way to create anon from playerID and openID in Huawei."
+         ],
+         "score": 7
+      },     
+      "quy.nguyenngoc": {
+         "reports": [
+            " - IIG english class",
+            " - post mortem meeting",
+            " - Add Third Party SDK Policy to Game Portal"
+         ],
+         "score": 6.5
+      },       
+      "anh.buithingoc": {
+         "reports": [
+            "DMLCNQA-1887 in progress",
+            "Joining post moterm",
+            "Contest C"
+         ],
+         "score": 6.5
+      },        
       "anh.nguyenviet6": {
          "reports": [
-            "aa",
-            "test1sa"
-         ]
+            "- Measure performance following order of IT team",
+            "- join Port Mortern",
+            "- Sync update for Policy from upd63.5 to trunk",
+            "- Resolve reject Huawei: by reflection call call init huawei in Policy(need a task to move completely to HPK aar)"
+         ],
+         "score": 7
+      },
+      "duc.luutrong": {
+         "reports": [
+            "- Meeting: dev, GD",
+            "- Try to resolve some issue related shooting"
+         ],
+         "score": 7
+      },
+      "giang.trinhthuy": {
+         "reports": [
+            "+ Update projectile physics (continued :pepe-106: )"
+         ],
+         "score": 6.5
+      },
+      "thao.lethithu": {
+         "reports": [
+            "- C++ contest",
+            "- Rework Dragon Racet"
+         ],
+         "score": 6.5
       }
    },
    "2023-4-27": {
+      "trung.maiduc2": {
+         "reports": [
+            "Set live ~ optional and mandatory for new update",
+            "Try to generate anonymous base on openID."
+         ],
+         "score": 7
+      },     
+      "quy.nguyenngoc": {
+         "reports": [
+            " merge data & build 740abs"
+         ],
+         "score": 7.5
+      },           
       "anh.nguyenviet6": {
          "reports": [
-            "- test server"
-         ]
+            "- Update Jira Automation for UPD64",
+            "- Relocate Raven Bot to new server and add some encrypts to avoid the infosec (because i got warning then removed the old server)",
+            "- thất nghiệp"
+         ],
+         "score": 6.5
+      },
+      "duc.luutrong": {
+         "reports": [
+            "- implement HP UI/ Add the necessary animations"
+         ],
+         "score": 7
+      },
+      "giang.trinhthuy": {
+         "reports": [
+            "+ Keep working on projectile physics"
+         ],
+         "score": 7
+      },
+      "thao.lethithu": {
+         "reports": [
+            "- Join C++ contest",
+            "- Rework UI in Training Task: One more fish",
+            "- Research for NF"
+         ],
+         "score": 7
       }
    }
 }

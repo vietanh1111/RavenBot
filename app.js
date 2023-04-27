@@ -1019,7 +1019,7 @@ async function getPiggyBank(current_user, extra_data = "") {
 
     let all_records = {}
     if (extra_data == "report_late") {
-        extra_data = "Bạn đã report quá muộn. " + "Cảm ơn " + team_member[current_user]["alias"] + " đã cống hiến thêm 3 chiếc bánh gà cho Piggy Bank."
+        extra_data = "Bạn đã report quá muộn. " + "Cảm ơn " + current_user + " đã cống hiến thêm 3 chiếc bánh gà cho Piggy Bank."
     } else if (extra_data == "just_get") {
         extra_data = ""
     } else {

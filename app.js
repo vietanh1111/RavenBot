@@ -917,7 +917,7 @@ async function getPiggyBank(current_user, mode = "") {
     } else {
         mode = ""
     }
-    let msg = mode + "\nPiggy Bank Leaderboard:"
+    let msg = mode + "\nBGABoard:"
         + "\n\n| Tên  | Số bánh gà | # |"
         + "\n|:-----------|:-----------:|:-----------------------------------------------|"
 

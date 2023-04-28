@@ -60,7 +60,7 @@ elif sys.argv[1] == 'doChat':
     # url = 'http://127.0.0.1:3000/doHelp'
 elif sys.argv[1] == 'doPiggy':
     data = {}
-    data["text"] = 'raven-piggybank: tha thao.lethithu'
+    data["text"] = 'raven-piggybank: phạt thao.lethithu'
     data["user_name"] = "trung.maiduc2"
     myobj = data
 elif sys.argv[1] == 'doCreateVersion':

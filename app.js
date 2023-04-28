@@ -945,11 +945,14 @@ async function getPiggyBank(current_user, mode = "") {
     let i = 1
     let smaller = 1000000
     for (let key in result) {
+       
         msg = msg + "\n| " + key + " | " + result[key] + " | " + i + " |"
         if(smaller < result[key]){
             i = i + 1
             smaller = result[key]
-        }  
+            console.log(smaller)
+            
+        }   
     }
     // printLog(arguments.callee.name, JSON.stringify(result, null, 3))
 

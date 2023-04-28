@@ -844,9 +844,8 @@ function CreateAndAddTasks(jsonData) {
 // report muộn
 // phạt
 // tha
-const PIGGY_LATE = "muộn"
-const PIGGY_PUNISH = "phạt"
-const PIGGY_EXCUSE = "tha"
+const PIGGY_LATE = "late"
+const PIGGY_EDIT = "edit"
 
 async function piggyBank(jsonData, mode = "") {
     const fs = require('fs');
@@ -865,15 +864,17 @@ async function piggyBank(jsonData, mode = "") {
     var currentDate = getCurrentDate()
     myData[currentDate] = {}
     if (mode = PIGGY_LATE) {
+        console.log("PIGGY_LATE")
         myData[currentDate][jsonData.user_name] = 3
         objectPersons += " " + jsonData.user_name
     } else {
+        console.log("PIGGY_EDIT")
         report.forEach(checkLine)
         function checkLine(value, index, array) {
             if (jsonData.text.includes("ph\u1ea1t")) {
-                process(PIGGY_PUNISH)
+                process("PIGGY_PUNISH")
             } else if (jsonData.text.includes("tha")) {
-                process(PIGGY_EXCUSE)
+                process("PIGGY_EXCUSE")
             }
         }
         function process(mode = "") {
@@ -881,10 +882,10 @@ async function piggyBank(jsonData, mode = "") {
                 if (jsonData.text.includes(team_member[member]["name"]) || jsonData.text.includes(team_member[member]["alias"])) {
                     console.log(piggyDataJson[currentDate][team_member[member]["name"]])
                     switch (mode) {
-                        case PIGGY_PUNISH:
+                        case "PIGGY_PUNISH":
                             myData[currentDate][team_member[member]["name"]] = piggyDataJson[currentDate][team_member[member]["name"]] + 3
                             break;
-                        case PIGGY_EXCUSE:
+                        case "PIGGY_EXCUSE":
                             myData[currentDate][team_member[member]["name"]] = piggyDataJson[currentDate][team_member[member]["name"]] - 3
                             break;
                     }
@@ -1053,10 +1054,8 @@ app.post('/doTask', function (req, res) {
                     let regex = /raven-sendraven/gi;
                     result = await sendMsgToRavenRoom()
                 } else if (jsonData["text"].toLowerCase().startsWith("raven-piggybank:")) {
-                    if (jsonData.text.includes("ph\u1ea1t")) { // PIGGY_PUNISH
-                        result = await piggyBank(jsonData, PIGGY_PUNISH)
-                    } else if (jsonData.text.includes("tha")) { // PIGGY_EXCUSE
-                        result = await piggyBank(jsonData, PIGGY_EXCUSE)
+                    if (jsonData.text.includes("ph\u1ea1t") || jsonData.text.includes("tha")) { // PIGGY_PUNISH
+                        result = await piggyBank(jsonData, PIGGY_EDIT)
                     } else {
                         result = await piggyBank(jsonData, PIGGY_LATE)
                     }

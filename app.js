@@ -3,6 +3,7 @@ var app = express();
 const fs = require("fs");
 const request = require('request')
 const openai = require("openai");
+const moment = require('moment');
 const queryString = require('querystring');
 const log = require("./utilities/log.js")
 const printLog = log.printLog
@@ -900,7 +901,7 @@ async function piggyBank(jsonData, mode = "") {
         let myJSON = JSON.stringify(merged, null, 3);
         fs.writeFileSync(piggy_bank_path, myJSON)
         push();
-        getPiggyBank(objectPersons, mode)
+        getPiggyBankInMonth(objectPersons, mode)
     } else {
         // printLog(arguments.callee.name, "Report: not found piggy_bank_path=" + piggy_bank_path)
     }
@@ -908,58 +909,79 @@ async function piggyBank(jsonData, mode = "") {
 }
 
 
-async function getPiggyBank(current_user, mode = "") {
+async function getPiggyBankInMonth(current_user, mode = "") {
     let piggy_data = getUserDataFromFile(piggy_bank_path)
-
-    let all_records = {}
-    if (mode == PIGGY_LATE) {
-        mode = "Bạn đã report quá muộn. " + "Cảm ơn " + current_user + " đã cống hiến thêm 3 chiếc bánh gà cho Piggy Bank."
-    } else {
-        mode = ""
-    }
-    let msg = mode + "\nBGABoard:"
-        + "\n\n| Tên  | Số bánh gà | # |"
-        + "\n|:-----------|:-----------:|:-----------------------------------------------|"
-
-    for (var member of Object.keys(team_member)) {
-        team_member_email = team_member[member]["name"]
-        number_records = 0
-        for (var date of Object.keys(piggy_data)) {
-            if (piggy_data[date][team_member[member]["name"]]) {
-                number_records += piggy_data[date][team_member[member]["name"]]
+    if (mode == "just_sumup") {
+        const now = new Date();
+        const currentMonth = now.getMonth()
+        let number_records = 0
+        for (var member of Object.keys(team_member)) {
+            team_member_email = team_member[member]["name"]
+            for (var date of Object.keys(piggy_data)) {
+                const checkMonth = moment(date)
+                if (currentMonth == checkMonth) {
+                    if (piggy_data[date][team_member[member]["name"]]) {
+                        number_records += piggy_data[date][team_member[member]["name"]]
+                    }
+                }
             }
         }
-        if (number_records > 0) {
-            all_records[team_member[member]["alias"]] = number_records
+
+        let msg = "Tổng kết tháng " + (currentMonth + 1) + " các mạnh thường quân đã quyên góp " + number_records + " cái bánh gà. Đầu tháng tới liên hoan!!!"
+        sendMessageToMM(msg)
+    } else {
+        let all_records = {}
+        if (mode == PIGGY_LATE) {
+            mode = "Bạn đã report quá muộn. " + "Cảm ơn " + current_user + " đã cống hiến thêm 3 chiếc bánh gà cho Piggy Bank."
+        } else {
+            mode = ""
         }
+        let msg = mode + "\nBGABoard:"
+            + "\n\n| Tên  | Số bánh gà | # |"
+            + "\n|:-----------|:-----------:|:-----------------------------------------------|"
+
+        for (var member of Object.keys(team_member)) {
+            team_member_email = team_member[member]["name"]
+            number_records = 0
+            for (var date of Object.keys(piggy_data)) {
+                const now = new Date();
+                const currentMonth = now.getMonth()
+                const checkMonth = moment(date)
+                if (currentMonth == checkMonth) {
+                    if (piggy_data[date][team_member[member]["name"]]) {
+                        number_records += piggy_data[date][team_member[member]["name"]]
+                    }
+                }
+            }
+            if (number_records > 0) {
+                all_records[team_member[member]["alias"]] = number_records
+            }
+        }
+
+        var sortedData = Object.entries(all_records).sort((a, b) => b[1] - a[1]);
+        const result = sortedData.reduce((acc, item) => {
+            acc[item[0]] = item[1];
+            return acc;
+        }, {});
+
+        console.log("getPiggyBankInMonth")
+        console.log(result)
+        let i = 0
+        let smaller = 1000000
+        for (let key in result) {
+            if (smaller > result[key]) {
+                i = i + 1
+                smaller = result[key]
+                console.log(smaller)
+
+            }
+            msg = msg + "\n| " + key + " | " + result[key] + " | " + i + " |"
+        }
+        // printLog(arguments.callee.name, JSON.stringify(result, null, 3))
+        sendMessageToMM(msg)
     }
 
-    var sortedData = Object.entries(all_records).sort((a, b) => b[1] - a[1]);
-    const result = sortedData.reduce((acc, item) => {
-        acc[item[0]] = item[1];
-        return acc;
-    }, {});
-
-    console.log("getPiggyBank")
-    console.log(result)
-    let i = 0
-    let smaller = 1000000
-    for (let key in result) {
-        if(smaller > result[key]){
-            i = i + 1
-            smaller = result[key]
-            console.log(smaller)
-            
-        } 
-        msg = msg + "\n| " + key + " | " + result[key] + " | " + i + " |"
-  
-    }
-    // printLog(arguments.callee.name, JSON.stringify(result, null, 3))
-
-
-
-    sendMessageToMM(msg)
-    return result
+    return "getPiggyBankInMonth"
 }
 
 async function GetHelp(jsonData) {
@@ -1064,8 +1086,12 @@ app.post('/doTask', function (req, res) {
                         console.log(jsonData.text)
                         result = await piggyBank(jsonData, PIGGY_LATE)
                     }
-                } else if (jsonData["text"].toLowerCase().startsWith("raven-getpiggybank")) {
-                    result = await getPiggyBank(jsonData.user_name, "just_get")
+                } else if (jsonData["text"].toLowerCase().startsWith("raven-getpiggybank:")) {
+                    if (jsonData.text.includes("sumup")) {
+                        result = await getPiggyBankInMonth(jsonData.user_name, "just_sumup")
+                    } else {
+                        result = await getPiggyBankInMonth(jsonData.user_name, "just_get")
+                    }
                 }
             }
             res.end(result)

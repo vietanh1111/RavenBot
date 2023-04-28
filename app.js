@@ -863,7 +863,7 @@ async function piggyBank(jsonData, mode = "") {
     var objectPersons = ""
     var currentDate = getCurrentDate()
     myData[currentDate] = {}
-    if (mode = PIGGY_LATE) {
+    if (mode == PIGGY_LATE) {
         console.log("PIGGY_LATE")
         myData[currentDate][jsonData.user_name] = 3
         objectPersons += " " + jsonData.user_name

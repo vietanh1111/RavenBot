@@ -847,6 +847,18 @@ function CreateAndAddTasks(jsonData) {
 
 
 async function piggyBank(jsonData, extra_data = "") {
+
+    const fs = require('fs');
+    let piggyData = ""
+    let piggyDataJson = {}
+    try {
+        piggyData = fs.readFileSync(piggy_bank_path, 'utf8');
+        piggyDataJson = JSON.parse(piggyData);
+    } catch (err) {
+        console.log("get piggy dataa have error")
+    }
+
+
     let objectPersons = ""
     let currentDate = getCurrentDate()
     var myData = {}
@@ -855,10 +867,11 @@ async function piggyBank(jsonData, extra_data = "") {
     let self_report = true;
     for (var member of Object.keys(team_member)) {
         if (jsonData.text.includes(team_member[member]["name"]) || jsonData.text.includes(team_member[member]["alias"])) {
-            if (!myData[currentDate][team_member[member]["name"]]) {
+            if (!piggyDataJson[currentDate][team_member[member]["name"]]) {
+                console.log("aaaaa1")
                 myData[currentDate][team_member[member]["name"]] = 3
             } else {
-                console.log("aaaaa")
+                console.log("aaaaa2")
                 if (jsonData.text.includes("ph\u1ea1t")) {
                     console.log("bbb")
                     myData[currentDate][team_member[member]["name"]] = myData[currentDate][team_member[member]["name"]] + 3
@@ -881,18 +894,10 @@ async function piggyBank(jsonData, extra_data = "") {
     }
 
 
-    const fs = require('fs');
-    let readDataStr = ""
-    let readDataJson = {}
-    try {
-        readDataStr = fs.readFileSync(piggy_bank_path, 'utf8');
-        readDataJson = JSON.parse(readDataStr);
-    } catch (err) {
-        // printLog(arguments.callee.name, "have error")
-    }
+
 
     const JSONObjectMerge = require("json-object-merge");
-    const merged = JSONObjectMerge.default(readDataJson, myData);
+    const merged = JSONObjectMerge.default(piggyDataJson, myData);
 
     if (fs.existsSync(piggy_bank_path)) {
         let myJSON = JSON.stringify(merged, null, 3);

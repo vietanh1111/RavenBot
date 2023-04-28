@@ -869,20 +869,12 @@ async function piggyBank(jsonData, extra_data = "") {
         if (jsonData.text.includes(team_member[member]["name"]) || jsonData.text.includes(team_member[member]["alias"])) {
             console.log(piggyDataJson[currentDate][team_member[member]["name"]])
             if (!piggyDataJson[currentDate][team_member[member]["name"]]) {
-                console.log("aaaaa1")
                 myData[currentDate][team_member[member]["name"]] = 3
             } else {
-                console.log("aaaaa2")
                 if (jsonData.text.includes("ph\u1ea1t")) {
-                    console.log("bbb")
-                    console.log(myData[currentDate][team_member[member]["name"]])
                     myData[currentDate][team_member[member]["name"]] = piggyDataJson[currentDate][team_member[member]["name"]] + 3
-                    console.log(myData[currentDate][team_member[member]["name"]])
                 } else if (jsonData.text.includes("tha")) {
-                    console.log("ccc")
-
-                    myData[currentDate][team_member[member]["name"]] = myData[currentDate][team_member[member]["name"]] - 3
-
+                    myData[currentDate][team_member[member]["name"]] = piggyDataJson[currentDate][team_member[member]["name"]] - 3
                 }
             }
 

@@ -947,7 +947,7 @@ async function getPiggyBank(current_user, mode = "") {
     for (let key in result) {
        
         msg = msg + "\n| " + key + " | " + result[key] + " | " + i + " |"
-        if(smaller < result[key]){
+        if(smaller > result[key]){
             i = i + 1
             smaller = result[key]
             console.log(smaller)

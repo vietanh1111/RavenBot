@@ -894,11 +894,12 @@ async function piggyBank(jsonData, extra_data = "") {
         objectPersons += team_member[member]["name"]
     }
 
-
+    console.log(myData)
 
 
     const JSONObjectMerge = require("json-object-merge");
     const merged = JSONObjectMerge.default(piggyDataJson, myData);
+    console.log(merged)
 
     if (fs.existsSync(piggy_bank_path)) {
         let myJSON = JSON.stringify(merged, null, 3);

@@ -16,8 +16,8 @@ const myDecryptSecret = decrypt(mySecret)
 // var ENV_SERVER = "http://127.0.0.1:3000/"
 const ENV_SERVER = "https://demo-deploy-app-01.onrender.com/"
 
-// const MM_DEST = `https://chat.${myDecryptSecret}.org/hooks/3xuqbiou1iyo9rc5otwkg7zywa`// vietanhtest
-const MM_DEST = `https://chat.${myDecryptSecret}.org/hooks/zgzs61kbmtbiuradjy6ut6oi8a` // raven
+const MM_DEST = `https://chat.${myDecryptSecret}.org/hooks/3xuqbiou1iyo9rc5otwkg7zywa`// vietanhtest
+// const MM_DEST = `https://chat.${myDecryptSecret}.org/hooks/zgzs61kbmtbiuradjy6ut6oi8a` // raven
 // const MM_DEST = `https://chat.${myDecryptSecret}.org/hooks/qbfdp4ftufboxkx4ek6xsah1jh`
 
 
@@ -840,6 +840,12 @@ function CreateAndAddTasks(jsonData) {
     }
 }
 
+// piggybank mode
+// report muộn
+// phạt
+// tha
+
+
 async function piggyBank(jsonData, extra_data = "") {
     let objectPersons = ""
     let currentDate = getCurrentDate()
@@ -848,8 +854,16 @@ async function piggyBank(jsonData, extra_data = "") {
 
     let self_report = true;
     for (var member of Object.keys(team_member)) {
-        if(jsonData.text.includes(team_member[member]["name"]) || jsonData.text.includes(team_member[member]["alias"])){
-            myData[currentDate][team_member[member]["name"]] = 3
+        if (jsonData.text.includes(team_member[member]["name"]) || jsonData.text.includes(team_member[member]["alias"])) {
+            if (!myData[currentDate][team_member[member]["name"]]) {
+                myData[currentDate][team_member[member]["name"]] = 3
+            } else {
+                if (jsonData.text.includes("phạt"))
+                    myData[currentDate][team_member[member]["name"]] = myData[currentDate][team_member[member]["name"]] + 3
+                else if (jsonData.text.includes("tha"))
+                    myData[currentDate][team_member[member]["name"]] = myData[currentDate][team_member[member]["name"]] - 3
+            }
+
             objectPersons += " " + team_member[member]["name"]
             self_report = false
         }
@@ -875,11 +889,8 @@ async function piggyBank(jsonData, extra_data = "") {
     const merged = JSONObjectMerge.default(readDataJson, myData);
 
     if (fs.existsSync(piggy_bank_path)) {
-        // printLog(arguments.callee.name, "existsSync")
         let myJSON = JSON.stringify(merged, null, 3);
         fs.writeFileSync(piggy_bank_path, myJSON)
-        // printLog(arguments.callee.name, "1")
-        // printLog(arguments.callee.name, "2")
 
         push();
         getPiggyBank(objectPersons, extra_data)
@@ -1054,8 +1065,8 @@ async function getPiggyBank(current_user, extra_data = "") {
     for (let key in result) {
         console.log(key);
 
-        msg = msg + "\n| " + key + " | " + result[key] + " | " + i +" |"
-        i = i +1
+        msg = msg + "\n| " + key + " | " + result[key] + " | " + i + " |"
+        i = i + 1
     }
     // printLog(arguments.callee.name, JSON.stringify(result, null, 3))
 

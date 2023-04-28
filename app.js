@@ -943,13 +943,13 @@ async function getPiggyBank(current_user, mode = "") {
     console.log("getPiggyBank")
     console.log(result)
     let i = 1
-    let biggest = 0
+    let smaller = 1000000
     for (let key in result) {
-        if(biggest < result[key]){
-            i = i + 1
-            biggest = result[key]
-        }  
         msg = msg + "\n| " + key + " | " + result[key] + " | " + i + " |"
+        if(smaller < result[key]){
+            i = i + 1
+            smaller = result[key]
+        }  
     }
     // printLog(arguments.callee.name, JSON.stringify(result, null, 3))
 

@@ -875,7 +875,9 @@ async function piggyBank(jsonData, extra_data = "") {
                 console.log("aaaaa2")
                 if (jsonData.text.includes("ph\u1ea1t")) {
                     console.log("bbb")
+                    console.log(myData[currentDate][team_member[member]["name"]])
                     myData[currentDate][team_member[member]["name"]] = myData[currentDate][team_member[member]["name"]] + 3
+                    console.log(myData[currentDate][team_member[member]["name"]])
                 } else if (jsonData.text.includes("tha")) {
                     console.log("ccc")
 

@@ -858,7 +858,7 @@ async function piggyBank(jsonData, extra_data = "") {
             if (!myData[currentDate][team_member[member]["name"]]) {
                 myData[currentDate][team_member[member]["name"]] = 3
             } else {
-                if (jsonData.text.includes("phạt"))
+                if (jsonData.text.includes("ph\u1ea1t"))
                     myData[currentDate][team_member[member]["name"]] = myData[currentDate][team_member[member]["name"]] + 3
                 else if (jsonData.text.includes("tha"))
                     myData[currentDate][team_member[member]["name"]] = myData[currentDate][team_member[member]["name"]] - 3

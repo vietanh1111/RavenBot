@@ -2343,20 +2343,20 @@
             "IIG English class"
          ],
          "score": 6
-      },  
+      },
       "trung.maiduc2": {
          "reports": [
             "- doing Huawei task changing playerId into openId"
          ],
          "score": 6.5
-      },         
+      },
       "duc.luutrong": {
          "reports": [
             "- Bounding projectile with screene",
             "Optimize code"
          ],
          "score": 7
-      },       
+      },
       "anh.nguyenviet6": {
          "reports": [
             "- Meeting devs",
@@ -2382,21 +2382,21 @@
             "- non-project: support mtl phantom on premake includedirs enviroment"
          ],
          "score": 7
-      },      
+      },
       "anh.buithingoc": {
          "reports": [
             "PP for tracking done",
             "• Learn C"
          ],
          "score": 6.5
-      },    
+      },
       "duc.luutrong": {
          "reports": [
             "Optimize moving for dragon",
             "Fixed some issue when bounding the egg projectile with screen"
          ],
          "score": 7
-      },         
+      },
       "quy.nguyenngoc": {
          "reports": [
             " - check Game Portal flow"
@@ -2438,7 +2438,7 @@
             "Research to implement health system"
          ],
          "score": 7.5
-      },       
+      },
       "thao.lethithu": {
          "reports": [
             "- Implement skill for dragons in Dragon Race"
@@ -2453,7 +2453,7 @@
             "Learn C"
          ],
          "score": 6.5
-      },      
+      },
       "giang.trinhthuy": {
          "reports": [
             "+ Update projectile physics",
@@ -2466,14 +2466,14 @@
             "Implement Health system"
          ],
          "score": 6.5
-      },       
+      },
       "trung.maiduc2": {
          "reports": [
             "- Continue doing Huawei task changing playerId into openId",
             "join workshops"
          ],
          "score": 7
-      },  
+      },
       "anh.nguyenviet6": {
          "reports": [
             "- Lead dev meeting",
@@ -2482,7 +2482,7 @@
             "Setup new build machine"
          ],
          "score": 7
-      },          
+      },
       "quy.nguyenngoc": {
          "reports": [
             " - Add Third Party SDK Policy to Game Portal ",
@@ -2496,7 +2496,7 @@
             "- continue working on dragon elements in NF Dragon Race"
          ],
          "score": 6.5
-      }      
+      }
    },
    "2023-4-24": {
       "anh.nguyenviet6": {
@@ -2506,7 +2506,7 @@
             "setup new build machine(jenkins config and measure performance)"
          ],
          "score": 7
-      },      
+      },
       "anh.buithingoc": {
          "reports": [
             "",
@@ -2521,7 +2521,7 @@
             "Trying to change on Huawei to use openID"
          ],
          "score": 7
-      },       
+      },
       "quy.nguyenngoc": {
          "reports": [
             " - Add Third Party SDK Policy to Game Portal ",
@@ -2541,14 +2541,14 @@
             "Try to fix some issue"
          ],
          "score": 7
-      },        
+      },
       "thao.lethithu": {
          "reports": [
             "Dragon elements for NF Dragon Race (cont)",
             "Learn C++ (prepare for C++ testing)"
          ],
          "score": 7
-      }      
+      }
    },
    "2023-4-25": {
       "trung.maiduc2": {
@@ -2559,7 +2559,7 @@
             "Joining post moterm"
          ],
          "score": 7
-      },     
+      },
       "quy.nguyenngoc": {
          "reports": [
             " - meeting",
@@ -2570,7 +2570,7 @@
             " - Add Third Party SDK Policy to Game Portal"
          ],
          "score": 6.5
-      },       
+      },
       "anh.buithingoc": {
          "reports": [
             "Workshop tracking done",
@@ -2578,7 +2578,7 @@
             "Learn C"
          ],
          "score": 6.5
-      },        
+      },
       "anh.nguyenviet6": {
          "reports": [
             "- weekly: dev meeting",
@@ -2617,7 +2617,7 @@
             "Trace and find the way to create anon from playerID and openID in Huawei."
          ],
          "score": 7
-      },     
+      },
       "quy.nguyenngoc": {
          "reports": [
             " - IIG english class",
@@ -2625,7 +2625,7 @@
             " - Add Third Party SDK Policy to Game Portal"
          ],
          "score": 6.5
-      },       
+      },
       "anh.buithingoc": {
          "reports": [
             "DMLCNQA-1887 in progress",
@@ -2633,7 +2633,7 @@
             "Contest C"
          ],
          "score": 6.5
-      },        
+      },
       "anh.nguyenviet6": {
          "reports": [
             "- Measure performance following order of IT team",
@@ -2671,13 +2671,13 @@
             "Try to generate anonymous base on openID."
          ],
          "score": 7
-      },     
+      },
       "quy.nguyenngoc": {
          "reports": [
             " merge data & build 740abs"
          ],
          "score": 7.5
-      },           
+      },
       "anh.nguyenviet6": {
          "reports": [
             "- Update Jira Automation for UPD64",
@@ -2705,6 +2705,13 @@
             "- Research for NF"
          ],
          "score": 7
+      }
+   },
+   "2023-4-28": {
+      "trung.maiduc2": {
+         "reports": [
+            "- Update UC and 333 SDK"
+         ]
       }
    }
 }

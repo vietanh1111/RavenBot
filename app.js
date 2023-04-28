@@ -946,7 +946,7 @@ async function getPiggyBankInMonth(current_user, mode = "") {
             for (var date of Object.keys(piggy_data)) {
                 const now = new Date();
                 const currentMonth = now.getMonth()
-                const checkMonth = moment(date)
+                const checkMonth = moment(date).month()
                 console.log(currentMonth)
                 console.log(checkMonth)
                 if (currentMonth == checkMonth) {

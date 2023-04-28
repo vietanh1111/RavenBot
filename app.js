@@ -488,7 +488,7 @@ async function sendReport(jsonData) {
 
         if (hours >= 10) {
             console.log("hello");
-            piggyBank(jsonData, "report_late")
+            piggyBank(jsonData, PIGGY_LATE)
         } else {
             console.log("It's not yet 10AM.");
         }
@@ -844,13 +844,14 @@ function CreateAndAddTasks(jsonData) {
 // report muộn
 // phạt
 // tha
+const PIGGY_LATE = "muộn"
+const PIGGY_PUNISH = "phạt"
+const PIGGY_EXCUSE = "tha"
 
-
-async function piggyBank(jsonData, extra_data = "") {
-
+async function piggyBank(jsonData, mode = "") {
     const fs = require('fs');
-    let piggyData = ""
-    let piggyDataJson = {}
+    var piggyData = ""
+    var piggyDataJson = {}
     try {
         piggyData = fs.readFileSync(piggy_bank_path, 'utf8');
         piggyDataJson = JSON.parse(piggyData);
@@ -858,57 +859,106 @@ async function piggyBank(jsonData, extra_data = "") {
         console.log("get piggy dataa have error")
     }
 
-
-    let objectPersons = ""
-    let currentDate = getCurrentDate()
+    var report = jsonData.text.split('\n');
     var myData = {}
+    var objectPersons = ""
+    var currentDate = getCurrentDate()
     myData[currentDate] = {}
-
-    let self_report = true;
-    for (var member of Object.keys(team_member)) {
-        if (jsonData.text.includes(team_member[member]["name"]) || jsonData.text.includes(team_member[member]["alias"])) {
-            console.log(piggyDataJson[currentDate][team_member[member]["name"]])
-            if (!piggyDataJson[currentDate][team_member[member]["name"]]) {
-                myData[currentDate][team_member[member]["name"]] = 3
-            } else {
-                if (jsonData.text.includes("ph\u1ea1t")) {
-                    myData[currentDate][team_member[member]["name"]] = piggyDataJson[currentDate][team_member[member]["name"]] + 3
-                } else if (jsonData.text.includes("tha")) {
-                    myData[currentDate][team_member[member]["name"]] = piggyDataJson[currentDate][team_member[member]["name"]] - 3
+    if (mode = PIGGY_LATE) {
+        myData[currentDate][jsonData.user_name] = 3
+        objectPersons += " " + jsonData.user_name
+    } else {
+        report.forEach(checkLine)
+        function checkLine(value, index, array) {
+            if (jsonData.text.includes("ph\u1ea1t")) {
+                process(PIGGY_PUNISH)
+            } else if (jsonData.text.includes("tha")) {
+                process(PIGGY_EXCUSE)
+            }
+        }
+        function process(mode = "") {
+            for (var member of Object.keys(team_member)) {
+                if (jsonData.text.includes(team_member[member]["name"]) || jsonData.text.includes(team_member[member]["alias"])) {
+                    console.log(piggyDataJson[currentDate][team_member[member]["name"]])
+                    switch (mode) {
+                        case PIGGY_PUNISH:
+                            myData[currentDate][team_member[member]["name"]] = piggyDataJson[currentDate][team_member[member]["name"]] + 3
+                            break;
+                        case PIGGY_EXCUSE:
+                            myData[currentDate][team_member[member]["name"]] = piggyDataJson[currentDate][team_member[member]["name"]] - 3
+                            break;
+                    }
+                    objectPersons += " " + team_member[member]["alias"]
                 }
             }
-
-            objectPersons += " " + team_member[member]["name"]
-            self_report = false
         }
     }
 
-    if (self_report) {
-        myData[currentDate][jsonData["user_name"]] = 3
-        objectPersons += team_member[member]["name"]
-    }
-
-    console.log(myData)
-
-
     const JSONObjectMerge = require("json-object-merge");
     const merged = JSONObjectMerge.default(piggyDataJson, myData);
-    console.log(merged)
 
     if (fs.existsSync(piggy_bank_path)) {
         let myJSON = JSON.stringify(merged, null, 3);
         fs.writeFileSync(piggy_bank_path, myJSON)
-
         push();
-        getPiggyBank(objectPersons, extra_data)
-
-
+        getPiggyBank(objectPersons, mode)
     } else {
         // printLog(arguments.callee.name, "Report: not found piggy_bank_path=" + piggy_bank_path)
     }
     return "piggyBank"
 }
 
+
+async function getPiggyBank(current_user, mode = "") {
+    let all_data = getUserDataFromFile(piggy_bank_path)
+
+    let all_records = {}
+    if (mode == PIGGY_LATE) {
+        mode = "Bạn đã report quá muộn. " + "Cảm ơn " + current_user + " đã cống hiến thêm 3 chiếc bánh gà cho Piggy Bank."
+    } else if (mode == "just_get") {
+        mode = ""
+    } else {
+        mode = "Cảm ơn " + current_user + " đã cống hiến thêm 3 chiếc bánh gà cho Piggy Bank."
+    }
+    let msg = mode + "\nPiggy Bank Leaderboard:"
+        + "\n\n| Tên  | Số bánh gà | # |"
+        + "\n|:-----------|:-----------:|:-----------------------------------------------|"
+
+    for (var member of Object.keys(team_member)) {
+        team_member_email = team_member[member]["name"]
+        number_records = 0
+        for (var date of Object.keys(all_data)) {
+            if (all_data[date][team_member[member]["name"]]) {
+                number_records += 3
+            }
+        }
+        if (number_records > 0) {
+            all_records[team_member[member]["alias"]] = number_records
+        }
+    }
+
+    var sortedData = Object.entries(all_records).sort((a, b) => b[1] - a[1]);
+    const result = sortedData.reduce((acc, item) => {
+        acc[item[0]] = item[1];
+        return acc;
+    }, {});
+
+    console.log("getPiggyBank")
+    console.log(result)
+    let i = 1
+    for (let key in result) {
+        console.log(key);
+
+        msg = msg + "\n| " + key + " | " + result[key] + " | " + i + " |"
+        i = i + 1
+    }
+    // printLog(arguments.callee.name, JSON.stringify(result, null, 3))
+
+
+
+    sendMessageToMM(msg)
+    return result
+}
 
 async function GetHelp(jsonData) {
     var msg = "#### Raven Options.\n\n| Option  | Command   | Note |"
@@ -1003,13 +1053,17 @@ app.post('/doTask', function (req, res) {
                     let regex = /raven-sendraven/gi;
                     result = await sendMsgToRavenRoom()
                 } else if (jsonData["text"].toLowerCase().startsWith("raven-piggybank:")) {
-                    result = await piggyBank(jsonData)
+                    if (jsonData.text.includes("ph\u1ea1t")) { // PIGGY_PUNISH
+                        result = await piggyBank(jsonData, PIGGY_PUNISH)
+                    } else if (jsonData.text.includes("tha")) { // PIGGY_EXCUSE
+                        result = await piggyBank(jsonData, PIGGY_EXCUSE)
+                    } else {
+                        result = await piggyBank(jsonData, PIGGY_LATE)
+                    }
                 } else if (jsonData["text"].toLowerCase().startsWith("raven-getpiggybank")) {
                     result = await getPiggyBank(jsonData.user_name, "just_get")
                 }
-
             }
-
             res.end(result)
         })
     }
@@ -1032,56 +1086,6 @@ app.post('/doChatOpenAI_slash', function (req, res) {
     }
 })
 
-async function getPiggyBank(current_user, extra_data = "") {
-    let all_data = getUserDataFromFile(piggy_bank_path)
-
-    let all_records = {}
-    if (extra_data == "report_late") {
-        extra_data = "Bạn đã report quá muộn. " + "Cảm ơn " + current_user + " đã cống hiến thêm 3 chiếc bánh gà cho Piggy Bank."
-    } else if (extra_data == "just_get") {
-        extra_data = ""
-    } else {
-        extra_data = "Cảm ơn " + current_user + " đã cống hiến thêm 3 chiếc bánh gà cho Piggy Bank."
-    }
-    let msg = extra_data + "\nPiggy Bank Leaderboard:"
-        + "\n\n| Tên  | Số bánh gà | # |"
-        + "\n|:-----------|:-----------:|:-----------------------------------------------|"
-
-    for (var member of Object.keys(team_member)) {
-        team_member_email = team_member[member]["name"]
-        number_records = 0
-        for (var date of Object.keys(all_data)) {
-            if (all_data[date][team_member[member]["name"]]) {
-                number_records += 3
-            }
-        }
-        if (number_records > 0) {
-            all_records[team_member[member]["alias"]] = number_records
-        }
-    }
-
-    var sortedData = Object.entries(all_records).sort((a, b) => b[1] - a[1]);
-    const result = sortedData.reduce((acc, item) => {
-        acc[item[0]] = item[1];
-        return acc;
-    }, {});
-
-    console.log("getPiggyBank")
-    console.log(result)
-    let i = 1
-    for (let key in result) {
-        console.log(key);
-
-        msg = msg + "\n| " + key + " | " + result[key] + " | " + i + " |"
-        i = i + 1
-    }
-    // printLog(arguments.callee.name, JSON.stringify(result, null, 3))
-
-
-
-    sendMessageToMM(msg)
-    return result
-}
 
 var server = app.listen(port, function () {
     var host = server.address().address

@@ -457,7 +457,6 @@ async function sendReport(jsonData) {
 
         printLog(arguments.callee.name, JSON.stringify(myData, null, 3))
 
-        const fs = require('fs');
         let readDataStr = ""
         let readDataJson = {}
         try {
@@ -848,7 +847,6 @@ const PIGGY_LATE = "late"
 const PIGGY_EDIT = "edit"
 
 async function piggyBank(jsonData, mode = "") {
-    const fs = require('fs');
     var piggyData = ""
     var piggyDataJson = {}
     try {
@@ -911,15 +909,13 @@ async function piggyBank(jsonData, mode = "") {
 
 
 async function getPiggyBank(current_user, mode = "") {
-    let all_data = getUserDataFromFile(piggy_bank_path)
+    let piggy_data = getUserDataFromFile(piggy_bank_path)
 
     let all_records = {}
     if (mode == PIGGY_LATE) {
         mode = "Bạn đã report quá muộn. " + "Cảm ơn " + current_user + " đã cống hiến thêm 3 chiếc bánh gà cho Piggy Bank."
-    } else if (mode == "just_get") {
-        mode = ""
     } else {
-        mode = "Cảm ơn " + current_user + " đã cống hiến thêm 3 chiếc bánh gà cho Piggy Bank."
+        mode = ""
     }
     let msg = mode + "\nPiggy Bank Leaderboard:"
         + "\n\n| Tên  | Số bánh gà | # |"
@@ -928,9 +924,9 @@ async function getPiggyBank(current_user, mode = "") {
     for (var member of Object.keys(team_member)) {
         team_member_email = team_member[member]["name"]
         number_records = 0
-        for (var date of Object.keys(all_data)) {
-            if (all_data[date][team_member[member]["name"]]) {
-                number_records += 3
+        for (var date of Object.keys(piggy_data)) {
+            if (piggy_data[date][team_member[member]["name"]]) {
+                number_records += piggy_data[date][team_member[member]["name"]]
             }
         }
         if (number_records > 0) {

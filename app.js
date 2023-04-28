@@ -867,6 +867,7 @@ async function piggyBank(jsonData, extra_data = "") {
     let self_report = true;
     for (var member of Object.keys(team_member)) {
         if (jsonData.text.includes(team_member[member]["name"]) || jsonData.text.includes(team_member[member]["alias"])) {
+            console.log(piggyDataJson[currentDate])
             if (!piggyDataJson[currentDate][team_member[member]["name"]]) {
                 console.log("aaaaa1")
                 myData[currentDate][team_member[member]["name"]] = 3

@@ -1089,7 +1089,7 @@ app.post('/doTask', function (req, res) {
                     result = await sendMsgToRavenRoom()
                 } else if (jsonData["text"].toLowerCase().startsWith("raven-piggybank:")) {
                     if (jsonData.text.includes("ph\u1ea1t") || jsonData.text.includes("tha")) { // PIGGY_PUNISH
-                        if(isOwner)
+                        if(isOwner(jsonData))
                             result = await piggyBank(jsonData, PIGGY_EDIT)
                     } else {
                         //result = await piggyBank(jsonData, PIGGY_LATE)

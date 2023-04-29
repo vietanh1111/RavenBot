@@ -566,7 +566,7 @@ function push() {
         }
     });
 }
-async function sendDragonContest() {
+async function sendDragonContest(jsonData) {
     printLog(arguments.callee.name, "sendDragonContest")
     if (jsonData["user_name"] !== "dat.letien2" && jsonData["user_name"] !== "anh.nguyenviet6") {
         failed_msg = "You couldn't do the action. Please ask your Manager"
@@ -576,6 +576,15 @@ async function sendDragonContest() {
         const result = await postContest()
         return result;
     }
+}
+
+function isOwner(jsonData){
+    if (jsonData["user_name"] !== "dat.letien2" && jsonData["user_name"] !== "anh.nguyenviet6") {
+        failed_msg = "You couldn't do the action."
+        sendMessageToMM(failed_msg)
+        return false
+    }
+    return true;
 }
 
 async function sendMsgToRavenRoom() {
@@ -1080,13 +1089,10 @@ app.post('/doTask', function (req, res) {
                     result = await sendMsgToRavenRoom()
                 } else if (jsonData["text"].toLowerCase().startsWith("raven-piggybank:")) {
                     if (jsonData.text.includes("ph\u1ea1t") || jsonData.text.includes("tha")) { // PIGGY_PUNISH
-                        console.log("1")
-                        console.log(jsonData.text)
-                        result = await piggyBank(jsonData, PIGGY_EDIT)
+                        if(isOwner)
+                            result = await piggyBank(jsonData, PIGGY_EDIT)
                     } else {
-                        console.log("2")
-                        console.log(jsonData.text)
-                        result = await piggyBank(jsonData, PIGGY_LATE)
+                        //result = await piggyBank(jsonData, PIGGY_LATE)
                     }
                 } else if (jsonData["text"].toLowerCase().startsWith("raven-getpiggybank:")) {
                     if (jsonData.text.includes("sumup")) {

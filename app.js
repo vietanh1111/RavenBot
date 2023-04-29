@@ -65,11 +65,11 @@ team_member = {
     },
     "quy.nguyenngoc": {
         "name": "quy.nguyenngoc",
-        "alias": "quynn"
+        "alias": "quydu2"
     },
     "duc.luutrong": {
         "name": "duc.luutrong",
-        "alias": "ducdoo"
+        "alias": "ducchampion"
     },
     "trung.maiduc2": {
         "name": "trung.maiduc2",
@@ -911,10 +911,10 @@ async function piggyBank(jsonData, mode = "") {
 
 async function getPiggyBankInMonth(current_user, mode = "") {
     let piggy_data = getUserDataFromFile(piggy_bank_path)
+    const now = new Date();
+    const currentMonth = now.getMonth()
+    let number_records = 0    
     if (mode == "just_sumup") {
-        const now = new Date();
-        const currentMonth = now.getMonth()
-        let number_records = 0
         for (var member of Object.keys(team_member)) {
             team_member_email = team_member[member]["name"]
             for (var date of Object.keys(piggy_data)) {
@@ -936,7 +936,7 @@ async function getPiggyBankInMonth(current_user, mode = "") {
         } else {
             mode = ""
         }
-        let msg = mode + "\nBGABoard:"
+        let msg = mode + "\nLeaderBoard Tháng "+(currentMonth + 1)+ ":"
             + "\n\n| Tên  | Số bánh gà | # |"
             + "\n|:-----------|:-----------:|:-----------------------------------------------|"
 

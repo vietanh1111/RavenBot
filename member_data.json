@@ -2713,5 +2713,13 @@
             "- Update UC and 333 SDK"
          ]
       }
+   },
+   "2023-5-4": {
+      "thao.lethithu": {
+         "reports": [
+            "- Unity Training Task: Fix bugs and build APK",
+            "- NF Dragon Race: Spawn obstacle objects (WIP)"
+         ]
+      }
    }
 }

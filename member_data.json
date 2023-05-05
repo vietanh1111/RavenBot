@@ -2721,5 +2721,18 @@
             "- NF Dragon Race: Spawn obstacle objects (WIP)"
          ]
       }
+   },
+   "2023-5-5": {
+      "anh.nguyenviet6": {
+         "reports": [
+            "- last fix sigils for error users to final check",
+            "- document new comer: update build document ",
+            "- sync sem + crm for 740bb",
+            "- automation for sync server and upload gamecode",
+            "- non-project: premake fix generation default params in ps",
+            "- non-project: premake update lowcase for ps system",
+            "- non-project: premake release 4.5.0"
+         ]
+      }
    }
 }

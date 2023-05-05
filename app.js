@@ -896,9 +896,11 @@ async function piggyBank(jsonData, mode = "") {
         function process(mode = "") {
             for (var member of Object.keys(team_member)) {
                 if (jsonData.text.includes(team_member[member]["name"]) || jsonData.text.includes(team_member[member]["alias"])) {
-                    console.log(piggyDataJson[currentDate][team_member[member]["name"]])
+                    // console.log(piggyDataJson[currentDate][team_member[member]["name"]])
                     switch (mode) {
                         case "PIGGY_PUNISH":
+                            if(!piggyDataJson[currentDate][team_member[member]["name"]])
+                                piggyDataJson[currentDate][team_member[member]["name"]] = 0
                             myData[currentDate][team_member[member]["name"]] = piggyDataJson[currentDate][team_member[member]["name"]] + 3
                             break;
                         case "PIGGY_EXCUSE":

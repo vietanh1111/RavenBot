@@ -86,6 +86,14 @@ team_member = {
     "thao.lethithu": {
         "name": "thao.lethithu",
         "alias": "mika"
+    },
+    "anh.nguyenhai": {
+        "name": "anh.nguyenhai",
+        "alias": "haianh"
+    },
+    "nghia.tranquoc": {
+        "name": "nghia.tranquoc",
+        "alias": "nghia"
     }
 }
 

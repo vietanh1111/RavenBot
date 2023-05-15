@@ -73,7 +73,7 @@ team_member = {
     },
     "trung.maiduc2": {
         "name": "trung.maiduc2",
-        "alias": "trungtrau99"
+        "alias": "trungtrauchinchin"
     },
     "giang.trinhthuy": {
         "name": "giang.trinhthuy",

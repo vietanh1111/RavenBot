@@ -914,17 +914,17 @@ async function piggyBank(jsonData, mode = "") {
         }
     }
 
-    const JSONObjectMerge = require("json-object-merge");
-    const merged = JSONObjectMerge.default(piggyDataJson, myData);
+    // const JSONObjectMerge = require("json-object-merge");
+    // const merged = JSONObjectMerge.default(piggyDataJson, myData);
 
-    if (fs.existsSync(piggy_bank_path)) {
-        let myJSON = JSON.stringify(merged, null, 3);
-        fs.writeFileSync(piggy_bank_path, myJSON)
-        push();
-        getPiggyBankInMonth(objectPersons, mode)
-    } else {
-        // printLog(arguments.callee.name, "Report: not found piggy_bank_path=" + piggy_bank_path)
-    }
+    // if (fs.existsSync(piggy_bank_path)) {
+    //     let myJSON = JSON.stringify(merged, null, 3);
+    //     fs.writeFileSync(piggy_bank_path, myJSON)
+    //     push();
+    //     getPiggyBankInMonth(objectPersons, mode)
+    // } else {
+    //     // printLog(arguments.callee.name, "Report: not found piggy_bank_path=" + piggy_bank_path)
+    // }
     return "piggyBank"
 }
 

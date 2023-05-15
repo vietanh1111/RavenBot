@@ -17,8 +17,8 @@ const myDecryptSecret = decrypt(mySecret)
 // var ENV_SERVER = "http://127.0.0.1:3000/"
 const ENV_SERVER = "https://demo-deploy-app-01.onrender.com/"
 
-// const MM_DEST = `https://chat.${myDecryptSecret}.org/hooks/3xuqbiou1iyo9rc5otwkg7zywa`// vietanhtest
-const MM_DEST = `https://chat.${myDecryptSecret}.org/hooks/zgzs61kbmtbiuradjy6ut6oi8a` // raven
+const MM_DEST = `https://chat.${myDecryptSecret}.org/hooks/3xuqbiou1iyo9rc5otwkg7zywa`// vietanhtest
+// const MM_DEST = `https://chat.${myDecryptSecret}.org/hooks/zgzs61kbmtbiuradjy6ut6oi8a` // raven
 // const MM_DEST = `https://chat.${myDecryptSecret}.org/hooks/qbfdp4ftufboxkx4ek6xsah1jh`
 
 
@@ -896,12 +896,14 @@ async function piggyBank(jsonData, mode = "") {
         function process(mode = "") {
             for (var member of Object.keys(team_member)) {
                 if (jsonData.text.includes(team_member[member]["name"]) || jsonData.text.includes(team_member[member]["alias"])) {
-                    // console.log(piggyDataJson[currentDate][team_member[member]["name"]])
                     switch (mode) {
                         case "PIGGY_PUNISH":
-                            if(!piggyDataJson[currentDate][team_member[member]["name"]])
-                                piggyDataJson[currentDate][team_member[member]["name"]] = 0
-                            myData[currentDate][team_member[member]["name"]] = piggyDataJson[currentDate][team_member[member]["name"]] + 3
+                            try {
+                                myData[currentDate][team_member[member]["name"]] = piggyDataJson[currentDate][team_member[member]["name"]] + 3
+                            } catch (error) {
+                                myData[currentDate][team_member[member]["name"]] = 3
+                            }
+
                             break;
                         case "PIGGY_EXCUSE":
                             myData[currentDate][team_member[member]["name"]] = piggyDataJson[currentDate][team_member[member]["name"]] - 3

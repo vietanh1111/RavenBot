@@ -920,10 +920,10 @@ async function piggyBank(jsonData, mode = "") {
     if (fs.existsSync(piggy_bank_path)) {
         let myJSON = JSON.stringify(merged, null, 3);
         fs.writeFileSync(piggy_bank_path, myJSON)
-        // push();
-        //getPiggyBankInMonth(objectPersons, mode)
+        push();
+        getPiggyBankInMonth(objectPersons, mode)
     } else {
-        // printLog(arguments.callee.name, "Report: not found piggy_bank_path=" + piggy_bank_path)
+        printLog(arguments.callee.name, "Report: not found piggy_bank_path=" + piggy_bank_path)
     }
     return "piggyBank"
 }

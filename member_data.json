@@ -2756,5 +2756,14 @@
             "- Fill the PMS and check bug base"
          ]
       }
+   },
+   "2023-5-22": {
+      "thao.lethithu": {
+         "reports": [
+            "- Join workshop",
+            "- Sync CRM & SEM for GOLD environment",
+            "- Join evaluation"
+         ]
+      }
    }
 }

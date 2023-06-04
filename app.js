@@ -990,6 +990,7 @@ async function getPiggyBankInMonth(current_user, mode = "") {
         console.log(result)
         let i = 0
         let smaller = 1000000
+        let sum_BGA = 0
         for (let key in result) {
             if (smaller > result[key]) {
                 i = i + 1
@@ -997,8 +998,11 @@ async function getPiggyBankInMonth(current_user, mode = "") {
                 console.log(smaller)
 
             }
+            sum_BGA = sum_BGA + result[key]
             msg = msg + "\n| " + key + " | " + result[key] + " | " + i + " |"
         }
+        msg = msg + "\n| " + "Tổng" + " | " + sum_BGA + " |  |"
+
         // printLog(arguments.callee.name, JSON.stringify(result, null, 3))
         sendMessageToMM(msg)
     }

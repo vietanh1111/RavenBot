@@ -2742,5 +2742,28 @@
             "- Join Duc’s sharing meeting "
          ]
       }
+   },
+   "2023-5-16": {
+      "thao.lethithu": {
+         "reports": [
+            "- Dev and team meeting ",
+            "- Join HPK workshop "
+         ]
+      },
+      "trung.maiduc2": {
+         "reports": [
+            "- Testing and public build huawei for using open ID",
+            "- Fill the PMS and check bug base"
+         ]
+      }
+   },
+   "2023-5-22": {
+      "thao.lethithu": {
+         "reports": [
+            "- Join workshop",
+            "- Sync CRM & SEM for GOLD environment",
+            "- Join evaluation"
+         ]
+      }
    }
 }

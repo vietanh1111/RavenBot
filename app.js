@@ -17,10 +17,10 @@ const myDecryptSecret = decrypt(mySecret)
 // var ENV_SERVER = "http://127.0.0.1:3000/"
 const ENV_SERVER = "https://demo-deploy-app-01.onrender.com/"
 
-// const MM_DEST = `https://chat.${myDecryptSecret}.org/hooks/3xuqbiou1iyo9rc5otwkg7zywa`// vietanhtest
+const VA_MM_DEST = `https://chat.${myDecryptSecret}.org/hooks/3xuqbiou1iyo9rc5otwkg7zywa`// vietanhtest
 const MM_DEST = `https://chat.${myDecryptSecret}.org/hooks/zgzs61kbmtbiuradjy6ut6oi8a` // raven
 // const MM_DEST = `https://chat.${myDecryptSecret}.org/hooks/qbfdp4ftufboxkx4ek6xsah1jh`
-
+const DEV_MM_DEST = `https://chat.${myDecryptSecret}.org/hooks/qbfdp4ftufboxkx4ek6xsah1jh`
 
 
 const AWS = require('aws-sdk');
@@ -586,7 +586,7 @@ async function sendDragonContest(jsonData) {
     }
 }
 
-function isOwner(jsonData){
+function isOwner(jsonData) {
     if (jsonData["user_name"] !== "dat.letien2" && jsonData["user_name"] !== "anh.nguyenviet6") {
         failed_msg = "You couldn't do the action."
         sendMessageToMM(failed_msg)
@@ -933,7 +933,7 @@ async function getPiggyBankInMonth(current_user, mode = "") {
     let piggy_data = getUserDataFromFile(piggy_bank_path)
     const now = new Date();
     const currentMonth = now.getMonth()
-    let number_records = 0    
+    let number_records = 0
     if (mode == "just_sumup") {
         for (var member of Object.keys(team_member)) {
             team_member_email = team_member[member]["name"]
@@ -956,7 +956,7 @@ async function getPiggyBankInMonth(current_user, mode = "") {
         } else {
             mode = ""
         }
-        let msg = mode + "\nLeaderBoard Tháng "+(currentMonth + 1)+ ":"
+        let msg = mode + "\nLeaderBoard Tháng " + (currentMonth + 1) + ":"
             + "\n\n| Tên  | Số bánh gà | # |"
             + "\n|:-----------|:-----------:|:-----------------------------------------------|"
 
@@ -1104,7 +1104,7 @@ app.post('/doTask', function (req, res) {
                     result = await sendMsgToRavenRoom()
                 } else if (jsonData["text"].toLowerCase().startsWith("raven-piggybank:")) {
                     if (jsonData.text.includes("ph\u1ea1t") || jsonData.text.includes("tha")) { // PIGGY_PUNISH
-                        if(isOwner(jsonData))
+                        if (isOwner(jsonData))
                             result = await piggyBank(jsonData, PIGGY_EDIT)
                     } else {
                         //result = await piggyBank(jsonData, PIGGY_LATE)
@@ -1133,6 +1133,49 @@ app.post('/doChatOpenAI_slash', function (req, res) {
             let question = params.text;
             let userName = params.user_name;
             let response = await requestGetOpenAIMsgForChatBotQA(question, userName, true)
+            console.log("DONE")
+            res.end(response)
+        })
+    }
+})
+
+async function registerBM(action, user_name, addQuestion) {
+    printLog(arguments.callee.name, "registerBM ")
+
+    try {
+        let messageMM = ""
+        if(action.startsWith("take-over")){
+            messageMM = "Tôi sẽ sử dụng máy build"
+        } else if(action.startsWith("release")){
+            messageMM = "Tôi đã dùng xong máy build"
+        } else if(action.startsWith("question")){
+            messageMM = "Ai dang dùng máy build không"
+        } else if(action.startsWith("help")){
+            messageMM = "Options:\n-`/dmlcn_bm take-over` -> thông báo sử dụng máy build\n-`/dmlcn_bm release` -> đã sử dụng xong máy build\n-`/dmlcn_bm question` -> hỏi ai đang dùng máy build\n-`/dmlcn_bm help` -> hiển thị options"
+        } 
+        res = await sendMessageToMM(messageMM, VA_MM_DEST)
+        printLog(arguments.callee.name, "registerBM get done")
+        return res
+
+    } catch (error) {
+        printLog(arguments.callee.name, "registerBM get error")
+        let messageMM = "**dragon_sender: **" + "Sorry, request Failed"
+        res = await sendMessageToMM(messageMM, VA_MM_DEST)
+        return res
+    }
+}
+
+app.post('/doRegisterBM_slash', function (req, res) {
+    if (req.method == 'POST') {
+        req.on('data', async function (data) {
+            data = data.toString()
+            console.log("doChatOpenAI for the data")
+            console.log(data)
+
+            let params = queryString.parse(data);
+            let question = params.text;
+            let userName = params.user_name;
+            let response = await registerBM(action, userName)
             console.log("DONE")
             res.end(response)
         })

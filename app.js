@@ -1145,15 +1145,15 @@ async function registerBM(action, user_name) {
     try {
         let messageMM = ""
         if(action.startsWith("take-over")){
-            messageMM = "Tôi sẽ sử dụng máy build"
+            messageMM = user_name + ": sử dụng máy build"
         } else if(action.startsWith("release")){
-            messageMM = "Tôi đã dùng xong máy build"
+            messageMM = user_name + ": dùng xong máy build"
         } else if(action.startsWith("question")){
-            messageMM = "Ai dang dùng máy build không"
+            messageMM = user_name + ": Ai dùng máy build không"
         } else if(action.startsWith("help")){
             messageMM = "Options:\n-`/dmlcn_bm take-over` -> thông báo sử dụng máy build\n-`/dmlcn_bm release` -> đã sử dụng xong máy build\n-`/dmlcn_bm question` -> hỏi ai đang dùng máy build\n-`/dmlcn_bm help` -> hiển thị options"
         } 
-        res = await sendMessageToMM(messageMM, VA_MM_DEST)
+        res = await sendMessageToMM(messageMM, DEV_MM_DEST)
         printLog(arguments.callee.name, "registerBM get done")
         return res
 

@@ -1147,9 +1147,9 @@ async function registerBM(action, user_name) {
         if(action.startsWith("take-over")){
             messageMM = user_name + ": sẽ truy cập máy build trong vòng 5' tới"
         } else if(action.startsWith("release")){
-            messageMM = user_name + ": dùng xong máy build"
+            messageMM = user_name + ": đã dùng xong máy build"
         } else if(action.startsWith("question")){
-            messageMM = user_name + ": Ai dùng máy build không"
+            messageMM = "Ai dùng máy build không"
         } else if(action.startsWith("help")){
             messageMM = "Options:\n-`/dmlcn_bm take-over` -> thông báo sử dụng máy build\n-`/dmlcn_bm release` -> đã sử dụng xong máy build\n-`/dmlcn_bm question` -> hỏi ai đang dùng máy build\n-`/dmlcn_bm help` -> hiển thị options"
         } 

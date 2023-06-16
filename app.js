@@ -1139,7 +1139,7 @@ app.post('/doChatOpenAI_slash', function (req, res) {
     }
 })
 
-async function registerBM(action, user_name, addQuestion) {
+async function registerBM(action, user_name) {
     printLog(arguments.callee.name, "registerBM ")
 
     try {

@@ -1145,7 +1145,7 @@ async function registerBM(action, user_name) {
     try {
         let messageMM = ""
         if(action.startsWith("take-over")){
-            messageMM = user_name + ": sử dụng máy build"
+            messageMM = user_name + ": sẽ truy cập máy build trong vòng 5' tới"
         } else if(action.startsWith("release")){
             messageMM = user_name + ": dùng xong máy build"
         } else if(action.startsWith("question")){

@@ -1173,7 +1173,7 @@ app.post('/doRegisterBM_slash', function (req, res) {
             console.log(data)
 
             let params = queryString.parse(data);
-            let question = params.text;
+            let action = params.text;
             let userName = params.user_name;
             let response = await registerBM(action, userName)
             console.log("DONE")

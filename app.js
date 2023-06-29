@@ -1061,7 +1061,7 @@ async function requestGetOpenAIMsg(question, mmUrl, suffix_msg) {
 }
 
 async function requestHanakoWip(data) {
-    let listToWip = {}
+    let listToWip = []
     for (var member of Object.keys(team_member)) {
         // get all member in list wip
         if(data.includes(team_member[member]["name"]) || data.includes(team_member[member]["alias"]))

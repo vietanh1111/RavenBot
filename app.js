@@ -1060,6 +1060,31 @@ async function requestGetOpenAIMsg(question, mmUrl, suffix_msg) {
     }
 }
 
+async function requestHanakoWip(data) {
+    let listToWip = {}
+    for (var member of Object.keys(team_member)) {
+        // get all member in list wip
+        if(data.includes(team_member[member]["name"]) || data.includes(team_member[member]["alias"]))
+        {
+            if(listToWip.includes(team_member[member]["name"]))
+            {
+                listToWip.push(team_member[member]["name"]);
+            }
+        }
+    }
+    print("listToWip=" + listToWip)
+
+    // iter the list and send msg to wip 
+    listToWip.forEach(sendWip);
+    function sendWip(value, index, array) {
+        print("sendWip start" )
+        print(value)
+        res = sendMessageToMM(value, "https://chat.gameloft.org/hooks/e196w4533iynxfszh1wfta9bmh")
+        print("sendWip done" )
+    }    
+
+}
+
 
 app.post('/doTask', function (req, res) {
     if (req.method == 'POST') {
@@ -1115,6 +1140,9 @@ app.post('/doTask', function (req, res) {
                     } else {
                         result = await getPiggyBankInMonth(jsonData.user_name, "just_get")
                     }
+                } else if (jsonData["text"].toLowerCase().startsWith("hanako wip")) {
+                    let regex = /hanako wip/gi;
+                    result = await requestHanakoWip(jsonData["text"].replace(regex, ""))
                 }
             }
             res.end(result)

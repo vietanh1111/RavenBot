@@ -1072,15 +1072,15 @@ async function requestHanakoWip(data) {
             }
         }
     }
-    print("listToWip=" + listToWip)
+    console.log("listToWip=" + listToWip)
 
     // iter the list and send msg to wip 
     listToWip.forEach(sendWip);
     function sendWip(value, index, array) {
-        print("sendWip start" )
-        print(value)
+        console.log("sendWip start" )
+        console.log(value)
         res = sendMessageToMM(value, "https://chat.gameloft.org/hooks/e196w4533iynxfszh1wfta9bmh")
-        print("sendWip done" )
+        console.log("sendWip done" )
     }    
 
 }

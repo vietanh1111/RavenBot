@@ -1066,7 +1066,7 @@ async function requestHanakoWip(data) {
         // get all member in list wip
         if(data.includes(team_member[member]["name"]) || data.includes(team_member[member]["alias"]))
         {
-            if(listToWip.includes(team_member[member]["name"]))
+            if(!listToWip.includes(team_member[member]["name"]))
             {
                 listToWip.push(team_member[member]["name"]);
             }

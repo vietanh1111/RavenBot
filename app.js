@@ -65,7 +65,7 @@ team_member = {
     },
     "quy.nguyenngoc": {
         "name": "quy.nguyenngoc",
-        "alias": "quydu2"
+        "alias": "Thầy Giáo Quý"
     },
     "duc.luutrong": {
         "name": "duc.luutrong",
@@ -73,7 +73,7 @@ team_member = {
     },
     "trung.maiduc2": {
         "name": "trung.maiduc2",
-        "alias": "trungtrauchinchin"
+        "alias": "trungchauchinchin"
     },
     "giang.trinhthuy": {
         "name": "giang.trinhthuy",
@@ -89,11 +89,11 @@ team_member = {
     },
     "anh.nguyenhai": {
         "name": "anh.nguyenhai",
-        "alias": "haianh"
+        "alias": "hailinh"
     },
     "nghia.tranquoc": {
         "name": "nghia.tranquoc",
-        "alias": "nghia"
+        "alias": "nghĩa đin tơ"
     }
 }
 
@@ -905,7 +905,7 @@ async function piggyBank(jsonData, mode = "") {
         if(!piggyDataJson[currentDate][jsonData.user_name])
             piggyDataJson[currentDate][jsonData.user_name] ={}
         let itemAdd = {}
-        itemAdd["NERA"] = 5
+        itemAdd["NemRan"] = 5
         piggyDataJson[currentDate][jsonData.user_name] = combineJson(piggyDataJson[currentDate][jsonData.user_name], itemAdd)
 
         objectPersons += " " + jsonData.user_name
@@ -914,6 +914,8 @@ async function piggyBank(jsonData, mode = "") {
 
         report.forEach(checkLine)
         function checkLine(value, index, array) {
+            console.log("line")
+            console.log(value)
             let pattern
             if (value.includes("BanhGa")) {
                 pattern = /(BanhGa)(.)(.+)(\s*)/
@@ -924,6 +926,7 @@ async function piggyBank(jsonData, mode = "") {
             let match = value.match(pattern)
             let item = match[1]
             let amount = parseInt(match[3])
+            
             let itemAdd = {}
             if (value.includes("ph\u1ea1t")) {
                 itemAdd[item] = amount
@@ -932,6 +935,7 @@ async function piggyBank(jsonData, mode = "") {
                 itemAdd[item] = -amount
                 process("PIGGY_EXCUSE", itemAdd)
             }
+            console.log(itemAdd)
         }
         function process(mode = "", itemAdd) {
             for (var member of Object.keys(team_member)) {
@@ -983,7 +987,7 @@ async function getPiggyBankInMonth(current_user, mode = "") {
     let piggy_data = getUserDataFromFile(piggy_bank_path)
     const now = new Date();
     const currentMonth = now.getMonth()
-    let number_records = {"BAGA" : 0, "NERA" : 0}
+    let number_records = {"BanhGa" : 0, "NemRan" : 0}
     if (mode == "just_sumup") {
         for (var member of Object.keys(team_member)) {
             team_member_email = team_member[member]["name"]
@@ -991,16 +995,16 @@ async function getPiggyBankInMonth(current_user, mode = "") {
                 const checkMonth = moment(date).month()
                 if (currentMonth == checkMonth) {
                     if (piggy_data[date][team_member[member]["name"]]) {
-                        if(piggy_data[date][team_member[member]["name"]]["BAGA"])
-                            number_records["BAGA"] += piggy_data[date][team_member[member]["name"]]["BAGA"]
-                        if(piggy_data[date][team_member[member]["name"]]["BAGA"])
-                            number_records["NERA"] += piggy_data[date][team_member[member]["name"]]["NERA"]                    
+                        if(piggy_data[date][team_member[member]["name"]]["BanhGa"])
+                            number_records["BanhGa"] += piggy_data[date][team_member[member]["name"]]["BanhGa"]
+                        if(piggy_data[date][team_member[member]["name"]]["NemRan"])
+                            number_records["NemRan"] += piggy_data[date][team_member[member]["name"]]["NemRan"]                    
                     }
                 }
             }
         }
         console.log(number_records)
-        let msg = "Tổng kết tháng " + (currentMonth + 1) + " các mạnh thường quân đã quyên góp " + number_records["BAGA"] + " cái bánh gà, " + number_records["BAGA"]  + " cái nem rán . Đầu tháng tới liên hoan!!!"
+        let msg = "Tổng kết tháng " + (currentMonth + 1) + " các mạnh thường quân đã quyên góp " + number_records["BanhGa"] + " cái bánh gà, " + number_records["BanhGa"]  + " cái nem rán . Đầu tháng tới liên hoan!!!"
         sendMessageToMM(msg, MM_DEST)
     } else {
         let all_records = {}
@@ -1017,7 +1021,7 @@ async function getPiggyBankInMonth(current_user, mode = "") {
 
         for (var member of Object.keys(team_member)) {
             team_member_email = team_member[member]["name"]
-            number_records = {"BAGA" : 0, "NERA" : 0}
+            number_records = {"BanhGa" : 0, "NemRan" : 0}
             for (var date of Object.keys(piggy_data)) {
                 const now = new Date();
                 const currentMonth = now.getMonth()
@@ -1027,14 +1031,14 @@ async function getPiggyBankInMonth(current_user, mode = "") {
                     //     number_records += piggy_data[date][team_member[member]["name"]]
                     // }
                     if (piggy_data[date][team_member[member]["name"]]) {
-                        if(piggy_data[date][team_member[member]["name"]]["BAGA"])
-                            number_records["BAGA"] += piggy_data[date][team_member[member]["name"]]["BAGA"]
-                        if(piggy_data[date][team_member[member]["name"]]["NERA"])
-                            number_records["NERA"] += piggy_data[date][team_member[member]["name"]]["NERA"]                    
+                        if(piggy_data[date][team_member[member]["name"]]["BanhGa"])
+                            number_records["BanhGa"] += piggy_data[date][team_member[member]["name"]]["BanhGa"]
+                        if(piggy_data[date][team_member[member]["name"]]["NemRan"])
+                            number_records["NemRan"] += piggy_data[date][team_member[member]["name"]]["NemRan"]                    
                     }                    
                 }
             }
-            if (number_records["BAGA"] > 0 || number_records["NERA"] > 0) {
+            if (number_records["BanhGa"] > 0 || number_records["NemRan"] > 0) {
                 all_records[team_member[member]["alias"]] = number_records
             }
         }
@@ -1046,8 +1050,8 @@ async function getPiggyBankInMonth(current_user, mode = "") {
         //     return acc;
         // }, {});
         let sortedArray = Object.entries(all_records).sort((a, b) => {
-            let sumA = a[1].BAGA + a[1].NERA;
-            let sumB = b[1].BAGA + b[1].NERA;
+            let sumA = a[1].BanhGa + a[1].NemRan;
+            let sumB = b[1].BanhGa + b[1].NemRan;
             return sumB - sumA;
         });
 
@@ -1060,13 +1064,13 @@ async function getPiggyBankInMonth(current_user, mode = "") {
         let sum_BGA = 0
         for (let key in sortedObject) {
             console.log(sortedObject[key])
-            if (smaller > (sortedObject[key].BAGA + sortedObject[key].NERA)) {
+            if (smaller > (sortedObject[key].BanhGa + sortedObject[key].NemRan)) {
                 i = i + 1
-                smaller = (sortedObject[key].BAGA + sortedObject[key].NERA)
+                smaller = (sortedObject[key].BanhGa + sortedObject[key].NemRan)
                 // console.log(smaller)
             }
-            sum_BGA = sum_BGA + sortedObject[key].BAGA + sortedObject[key].NERA
-            msg = msg + "\n| " + key + " | " + sortedObject[key].BAGA + " | "+ sortedObject[key].NERA + " | " + i + " |"
+            sum_BGA = sum_BGA + sortedObject[key].BanhGa + sortedObject[key].NemRan
+            msg = msg + "\n| " + key + " | " + sortedObject[key].BanhGa + " | "+ sortedObject[key].NemRan + " | " + i + " |"
         }
         msg = msg + "\n| " + "Tổng" + " | " + " | " + sum_BGA + " |  |"
 

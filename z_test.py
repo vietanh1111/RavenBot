@@ -61,7 +61,7 @@ elif sys.argv[1] == 'doChat':
 elif sys.argv[1] == 'doPiggy':
     data = {}
     # data["text"] = 'raven-piggybank: phạt thao.lethithu BAGAx3'
-    data["text"] = 'raven-piggybank: phạt quy.nguyenngoc NERAx5'
+    data["text"] = 'raven-piggybank: \nphạt quy.nguyenngoc'
     # data["text"] = 'raven-getpiggybank: sumup'
     data["user_name"] = "anh.nguyenviet6"
     myobj = data

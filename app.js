@@ -1144,7 +1144,8 @@ async function requestHanakoWip(data) {
     function sendWip(value, index, array) {
         console.log("sendWip start")
         console.log(value)
-        res = sendMessageToMM(value, "https://chat.gameloft.org/hooks/e196w4533iynxfszh1wfta9bmh")
+        const WIP_MM_DEST = `https://chat.${myDecryptSecret}.org/hooks/e196w4533iynxfszh1wfta9bmh`// wip 
+        res = sendMessageToMM(value, WIP_MM_DEST)
         console.log("sendWip done")
     }
 

@@ -65,7 +65,7 @@ team_member = {
     },
     "quy.nguyenngoc": {
         "name": "quy.nguyenngoc",
-        "alias": "Thầy Giáo Quý"
+        "alias": "quy.nguyenngoc"
     },
     "duc.luutrong": {
         "name": "duc.luutrong",
@@ -895,7 +895,7 @@ async function piggyBank(jsonData, mode = "") {
     }
 
     var report = jsonData.text.split('\n');
-    var myData = {}
+    // var myData = {}
     var objectPersons = ""
     var currentDate = getCurrentDate()
     if(!piggyDataJson[currentDate])
@@ -930,16 +930,16 @@ async function piggyBank(jsonData, mode = "") {
             let itemAdd = {}
             if (value.includes("ph\u1ea1t")) {
                 itemAdd[item] = amount
-                process("PIGGY_PUNISH", itemAdd)
+                process(value, "PIGGY_PUNISH", itemAdd)
             } else if (value.includes("tha")) {
                 itemAdd[item] = -amount
-                process("PIGGY_EXCUSE", itemAdd)
+                process(value, "PIGGY_EXCUSE", itemAdd)
             }
             console.log(itemAdd)
         }
-        function process(mode = "", itemAdd) {
+        function process(line, mode = "", itemAdd) {
             for (var member of Object.keys(team_member)) {
-                if (jsonData.text.includes(team_member[member]["name"]) || jsonData.text.includes(team_member[member]["alias"])) {
+                if (line.includes(team_member[member]["name"]) || line.includes(team_member[member]["alias"])) {
                     // switch (mode) {
                     //     case "PIGGY_PUNISH":
                     //         try {
@@ -963,6 +963,7 @@ async function piggyBank(jsonData, mode = "") {
                     piggyDataJson[currentDate][team_member[member]["name"]] = combineJson(piggyDataJson[currentDate][team_member[member]["name"]], itemAdd)
 
                     objectPersons += " " + team_member[member]["alias"]
+                    break
                 }
             }
         }
@@ -1016,7 +1017,7 @@ async function getPiggyBankInMonth(current_user, mode = "") {
             mode = ""
         }
         let msg = mode + "\nLeaderBoard Tháng " + (currentMonth + 1) + ":"
-            + "\n\n| Tên  | Số Nem Rán | Số Bánh Gà | # |"
+            + "\n\n| Tên  | Số Bánh Gà  | Số Nem Rán  | # |"
             + "\n|:-----------|:-----------:|:-----------:|:-----------------------------------------------|"
 
         for (var member of Object.keys(team_member)) {
@@ -1072,7 +1073,7 @@ async function getPiggyBankInMonth(current_user, mode = "") {
             sum_BGA = sum_BGA + sortedObject[key].BanhGa + sortedObject[key].NemRan
             msg = msg + "\n| " + key + " | " + sortedObject[key].BanhGa + " | "+ sortedObject[key].NemRan + " | " + i + " |"
         }
-        msg = msg + "\n| " + "Tổng" + " | " + " | " + sum_BGA + " |  |"
+        msg = msg + "\n| " + "Tổng" + " | " + " |  | " + sum_BGA + " :chicken: |"
 
         // printLog(arguments.callee.name, JSON.stringify(result, null, 3))
         sendMessageToMM(msg, MM_DEST)

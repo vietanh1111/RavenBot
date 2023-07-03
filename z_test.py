@@ -60,10 +60,18 @@ elif sys.argv[1] == 'doChat':
     # url = 'http://127.0.0.1:3000/doHelp'
 elif sys.argv[1] == 'doPiggy':
     data = {}
-    data["text"] = 'raven-piggybank: phạt thao.lethithu'
+    # data["text"] = 'raven-piggybank: phạt thao.lethithu BAGAx3'
+    data["text"] = 'raven-piggybank: phạt quy.nguyenngoc NERAx5'
     # data["text"] = 'raven-getpiggybank: sumup'
     data["user_name"] = "anh.nguyenviet6"
     myobj = data
+elif sys.argv[1] == 'doPiggySumup':
+    data = {}
+    # data["text"] = 'raven-piggybank: phạt thao.lethithu BAGAx3'
+    data["text"] = 'raven-getpiggybank: '
+    # data["text"] = 'raven-getpiggybank: sumup'
+    data["user_name"] = "anh.nguyenviet6"
+    myobj = data    
 elif sys.argv[1] == 'doCreateVersion':
     data = {}
     # data["text"] = 'Raven-jira: create\ngame_version:7.3.0eb\nepic_link:DMLCNQA-1651'

@@ -863,11 +863,31 @@ function CreateAndAddTasks(jsonData) {
 // tha
 const PIGGY_LATE = "late"
 const PIGGY_EDIT = "edit"
+class PunishItem {
+    constructor(name, num) {
+        this.id = name;
+        this.num = num;
+    }
+}
+function combineJson(source, add) {
+    let result = source
+    console.log(source)
+    console.log(add)
+    Object.keys(add).forEach(function (keyAdd) {
+        if (result[keyAdd]) {
+            result[keyAdd] = result[keyAdd] + add[keyAdd]
+        }
+        else {
+            result[keyAdd] = add[keyAdd]
+        }
+    })
+    return result
+}
 
 async function piggyBank(jsonData, mode = "") {
     var piggyData = ""
     var piggyDataJson = {}
-    try {
+    try {                                      
         piggyData = fs.readFileSync(piggy_bank_path, 'utf8');
         piggyDataJson = JSON.parse(piggyData);
     } catch (err) {
@@ -878,47 +898,77 @@ async function piggyBank(jsonData, mode = "") {
     var myData = {}
     var objectPersons = ""
     var currentDate = getCurrentDate()
-    myData[currentDate] = {}
+    if(!piggyDataJson[currentDate])
+        piggyDataJson[currentDate] = {}
     if (mode == PIGGY_LATE) {
         console.log("PIGGY_LATE")
-        myData[currentDate][jsonData.user_name] = 3
+        if(!piggyDataJson[currentDate][jsonData.user_name])
+            piggyDataJson[currentDate][jsonData.user_name] ={}
+        let itemAdd = {}
+        itemAdd["NERA"] = 5
+        piggyDataJson[currentDate][jsonData.user_name] = combineJson(piggyDataJson[currentDate][jsonData.user_name], itemAdd)
+
         objectPersons += " " + jsonData.user_name
     } else {
         console.log("PIGGY_EDIT")
+
         report.forEach(checkLine)
         function checkLine(value, index, array) {
-            if (jsonData.text.includes("ph\u1ea1t")) {
-                process("PIGGY_PUNISH")
-            } else if (jsonData.text.includes("tha")) {
-                process("PIGGY_EXCUSE")
+            let pattern
+            if (value.includes("BanhGa")) {
+                pattern = /(BanhGa)(.)(.+)(\s*)/
+            }
+            else if (value.includes("NemRan")) {
+                pattern = /(NemRan)(.)(.+)(\s*)/
+            }
+            let match = value.match(pattern)
+            let item = match[1]
+            let amount = parseInt(match[3])
+            let itemAdd = {}
+            if (value.includes("ph\u1ea1t")) {
+                itemAdd[item] = amount
+                process("PIGGY_PUNISH", itemAdd)
+            } else if (value.includes("tha")) {
+                itemAdd[item] = -amount
+                process("PIGGY_EXCUSE", itemAdd)
             }
         }
-        function process(mode = "") {
+        function process(mode = "", itemAdd) {
             for (var member of Object.keys(team_member)) {
                 if (jsonData.text.includes(team_member[member]["name"]) || jsonData.text.includes(team_member[member]["alias"])) {
-                    switch (mode) {
-                        case "PIGGY_PUNISH":
-                            try {
-                                myData[currentDate][team_member[member]["name"]] = piggyDataJson[currentDate][team_member[member]["name"]] + 3
-                            } catch (error) {
-                                myData[currentDate][team_member[member]["name"]] = 3
-                            }
-                            break;
-                        case "PIGGY_EXCUSE":
-                            myData[currentDate][team_member[member]["name"]] = piggyDataJson[currentDate][team_member[member]["name"]] - 3
-                            break;
-                    }
+                    // switch (mode) {
+                    //     case "PIGGY_PUNISH":
+                    //         try {
+                    //             myData[currentDate][team_member[member]["name"]] = piggyDataJson[currentDate][team_member[member]["name"]] + 5
+                    //         } catch (error) {
+                    //             myData[currentDate][team_member[member]["name"]] = itemAdd
+                    //         }
+                    //         break;
+                    //     case "PIGGY_EXCUSE":
+                    //         myData[currentDate][team_member[member]["name"]] = piggyDataJson[currentDate][team_member[member]["name"]] - 5
+                    //         break;
+                    // }
+
+                    if(!piggyDataJson[currentDate])
+                        piggyDataJson[currentDate] = {}
+                    console.log("aaaa")
+                    console.log(piggyDataJson)
+                    console.log(piggyDataJson[currentDate][team_member[member]["name"]])
+                    if(!piggyDataJson[currentDate][team_member[member]["name"]])
+                        piggyDataJson[currentDate][team_member[member]["name"]] = {}
+                    piggyDataJson[currentDate][team_member[member]["name"]] = combineJson(piggyDataJson[currentDate][team_member[member]["name"]], itemAdd)
+
                     objectPersons += " " + team_member[member]["alias"]
                 }
             }
         }
     }
 
-    const JSONObjectMerge = require("json-object-merge");
-    const merged = JSONObjectMerge.default(piggyDataJson, myData);
+    // const JSONObjectMerge = require("json-object-merge");
+    // const merged = JSONObjectMerge.default(piggyDataJson, myData);
 
     if (fs.existsSync(piggy_bank_path)) {
-        let myJSON = JSON.stringify(merged, null, 3);
+        let myJSON = JSON.stringify(piggyDataJson, null, 3);
         fs.writeFileSync(piggy_bank_path, myJSON)
         push();
         getPiggyBankInMonth(objectPersons, mode)
@@ -933,7 +983,7 @@ async function getPiggyBankInMonth(current_user, mode = "") {
     let piggy_data = getUserDataFromFile(piggy_bank_path)
     const now = new Date();
     const currentMonth = now.getMonth()
-    let number_records = 0
+    let number_records = {"BAGA" : 0, "NERA" : 0}
     if (mode == "just_sumup") {
         for (var member of Object.keys(team_member)) {
             team_member_email = team_member[member]["name"]
@@ -941,70 +991,87 @@ async function getPiggyBankInMonth(current_user, mode = "") {
                 const checkMonth = moment(date).month()
                 if (currentMonth == checkMonth) {
                     if (piggy_data[date][team_member[member]["name"]]) {
-                        number_records += piggy_data[date][team_member[member]["name"]]
+                        if(piggy_data[date][team_member[member]["name"]]["BAGA"])
+                            number_records["BAGA"] += piggy_data[date][team_member[member]["name"]]["BAGA"]
+                        if(piggy_data[date][team_member[member]["name"]]["BAGA"])
+                            number_records["NERA"] += piggy_data[date][team_member[member]["name"]]["NERA"]                    
                     }
                 }
             }
         }
-
-        let msg = "Tổng kết tháng " + (currentMonth + 1) + " các mạnh thường quân đã quyên góp " + number_records + " cái bánh gà. Đầu tháng tới liên hoan!!!"
-        sendMessageToMM(msg)
+        console.log(number_records)
+        let msg = "Tổng kết tháng " + (currentMonth + 1) + " các mạnh thường quân đã quyên góp " + number_records["BAGA"] + " cái bánh gà, " + number_records["BAGA"]  + " cái nem rán . Đầu tháng tới liên hoan!!!"
+        sendMessageToMM(msg, MM_DEST)
     } else {
         let all_records = {}
         if (mode == PIGGY_LATE) {
-            mode = "Bạn đã report quá muộn. " + "Cảm ơn " + current_user + " đã cống hiến thêm 3 chiếc bánh gà cho Piggy Bank."
+            mode = "Bạn đã report quá muộn. " + "Cảm ơn " + current_user + " đã cống hiến cho Piggy Bank."
+        } else if (mode == PIGGY_EDIT) {
+            mode = "Cảm ơn " + current_user + " đã cống hiến cho Piggy Bank."
         } else {
             mode = ""
         }
         let msg = mode + "\nLeaderBoard Tháng " + (currentMonth + 1) + ":"
-            + "\n\n| Tên  | Số bánh gà | # |"
-            + "\n|:-----------|:-----------:|:-----------------------------------------------|"
+            + "\n\n| Tên  | Số Nem Rán | Số Bánh Gà | # |"
+            + "\n|:-----------|:-----------:|:-----------:|:-----------------------------------------------|"
 
         for (var member of Object.keys(team_member)) {
             team_member_email = team_member[member]["name"]
-            number_records = 0
+            number_records = {"BAGA" : 0, "NERA" : 0}
             for (var date of Object.keys(piggy_data)) {
                 const now = new Date();
                 const currentMonth = now.getMonth()
                 const checkMonth = moment(date).month()
-                console.log(currentMonth)
-                console.log(checkMonth)
                 if (currentMonth == checkMonth) {
+                    // if (piggy_data[date][team_member[member]["name"]]) {
+                    //     number_records += piggy_data[date][team_member[member]["name"]]
+                    // }
                     if (piggy_data[date][team_member[member]["name"]]) {
-                        number_records += piggy_data[date][team_member[member]["name"]]
-                    }
+                        if(piggy_data[date][team_member[member]["name"]]["BAGA"])
+                            number_records["BAGA"] += piggy_data[date][team_member[member]["name"]]["BAGA"]
+                        if(piggy_data[date][team_member[member]["name"]]["NERA"])
+                            number_records["NERA"] += piggy_data[date][team_member[member]["name"]]["NERA"]                    
+                    }                    
                 }
             }
-            if (number_records > 0) {
+            if (number_records["BAGA"] > 0 || number_records["NERA"] > 0) {
                 all_records[team_member[member]["alias"]] = number_records
             }
         }
+        console.log(all_records)
 
-        var sortedData = Object.entries(all_records).sort((a, b) => b[1] - a[1]);
-        const result = sortedData.reduce((acc, item) => {
-            acc[item[0]] = item[1];
-            return acc;
-        }, {});
+        // var sortedData = Object.entries(all_records).sort((a, b) => b[1] - a[1]);
+        // const result = sortedData.reduce((acc, item) => {
+        //     acc[item[0]] = item[1];
+        //     return acc;
+        // }, {});
+        let sortedArray = Object.entries(all_records).sort((a, b) => {
+            let sumA = a[1].BAGA + a[1].NERA;
+            let sumB = b[1].BAGA + b[1].NERA;
+            return sumB - sumA;
+        });
+
+        let sortedObject = Object.fromEntries(sortedArray);
 
         console.log("getPiggyBankInMonth")
-        console.log(result)
+        console.log(sortedObject)
         let i = 0
         let smaller = 1000000
         let sum_BGA = 0
-        for (let key in result) {
-            if (smaller > result[key]) {
+        for (let key in sortedObject) {
+            console.log(sortedObject[key])
+            if (smaller > (sortedObject[key].BAGA + sortedObject[key].NERA)) {
                 i = i + 1
-                smaller = result[key]
-                console.log(smaller)
-
+                smaller = (sortedObject[key].BAGA + sortedObject[key].NERA)
+                // console.log(smaller)
             }
-            sum_BGA = sum_BGA + result[key]
-            msg = msg + "\n| " + key + " | " + result[key] + " | " + i + " |"
+            sum_BGA = sum_BGA + sortedObject[key].BAGA + sortedObject[key].NERA
+            msg = msg + "\n| " + key + " | " + sortedObject[key].BAGA + " | "+ sortedObject[key].NERA + " | " + i + " |"
         }
-        msg = msg + "\n| " + "Tổng" + " | " + sum_BGA + " |  |"
+        msg = msg + "\n| " + "Tổng" + " | " + " | " + sum_BGA + " |  |"
 
         // printLog(arguments.callee.name, JSON.stringify(result, null, 3))
-        sendMessageToMM(msg)
+        sendMessageToMM(msg, MM_DEST)
     }
 
     return "getPiggyBankInMonth"
@@ -1064,10 +1131,8 @@ async function requestHanakoWip(data) {
     let listToWip = []
     for (var member of Object.keys(team_member)) {
         // get all member in list wip
-        if(data.includes(team_member[member]["name"]) || data.includes(team_member[member]["alias"]))
-        {
-            if(!listToWip.includes(team_member[member]["name"]))
-            {
+        if (data.includes(team_member[member]["name"]) || data.includes(team_member[member]["alias"])) {
+            if (!listToWip.includes(team_member[member]["name"])) {
                 listToWip.push(team_member[member]["name"]);
             }
         }
@@ -1077,11 +1142,11 @@ async function requestHanakoWip(data) {
     // iter the list and send msg to wip 
     listToWip.forEach(sendWip);
     function sendWip(value, index, array) {
-        console.log("sendWip start" )
+        console.log("sendWip start")
         console.log(value)
         res = sendMessageToMM(value, "https://chat.gameloft.org/hooks/e196w4533iynxfszh1wfta9bmh")
-        console.log("sendWip done" )
-    }    
+        console.log("sendWip done")
+    }
 
 }
 
@@ -1172,17 +1237,17 @@ async function registerBM(action, user_name) {
 
     try {
         let messageMM = ""
-        if(action.startsWith("take-over")){
+        if (action.startsWith("take-over")) {
             messageMM = user_name + ": sẽ truy cập máy build trong vòng 5' tới"
-        } else if(action.startsWith("release")){
+        } else if (action.startsWith("release")) {
             messageMM = user_name + ": đã dùng xong máy build"
-        } else if(action.startsWith("question")){
+        } else if (action.startsWith("question")) {
             messageMM = "Ai dùng máy build không"
-        } else if(action.startsWith("ask_status")){
+        } else if (action.startsWith("ask_status")) {
             messageMM = "Ai đang rảnh không"
-        } else if(action.startsWith("give-me-task")){
+        } else if (action.startsWith("give-me-task")) {
             messageMM = user_name + ": tôi đang rảnh, hãy cho tôi task!!!"
-        }  else if(action.startsWith("help")){
+        } else if (action.startsWith("help")) {
             messageMM = "Options:\n-`/dmlcn_bm take-over` -> thông báo sử dụng máy build\n-`/dmlcn_bm release` -> đã sử dụng xong máy build\n-`/dmlcn_bm question` -> hỏi ai đang dùng máy build\n-`/dmlcn_bm help` -> hiển thị options\n-`/dmlcn_bm give-me-task` -> yêu cầu task mới"
         }
         res = await sendMessageToMM(messageMM, DEV_MM_DEST)

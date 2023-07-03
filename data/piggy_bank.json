@@ -73,7 +73,14 @@
    },
    "2023-7-3": {
       "quy.nguyenngoc": {
-         "NERA": 5
+         "NERA": 5,
+         "NemRan": 25
+      },
+      "trung.maiduc2": {
+         "NemRan": 25
+      },
+      "thao.lethithu": {
+         "NemRan": 25
       }
    }
 }

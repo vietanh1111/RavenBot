@@ -2782,5 +2782,13 @@
             "- test IAP limit bug to confirm fix"
          ]
       }
+   },
+   "2023-7-11": {
+      "thao.lethithu": {
+         "reports": [
+            "- Continue working on IAP Tracking issue.",
+            "- Contact Nghia to define UI for Dragon Race."
+         ]
+      }
    }
 }

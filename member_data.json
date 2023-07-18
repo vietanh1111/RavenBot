@@ -2790,5 +2790,13 @@
             "- Contact Nghia to define UI for Dragon Race."
          ]
       }
+   },
+   "2023-7-18": {
+      "trung.maiduc2": {
+         "reports": [
+            "- Support build 750j-jb",
+            "- Get params from request and use it on OpenId - wip"
+         ]
+      }
    }
 }

@@ -2798,5 +2798,12 @@
             "- Get params from request and use it on OpenId - wip"
          ]
       }
+   },
+   "2023-7-19": {
+      "giang.trinhthuy": {
+         "reports": [
+            "+ change gacha info popup to scrollable"
+         ]
+      }
    }
 }

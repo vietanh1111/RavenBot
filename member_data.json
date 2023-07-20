@@ -2805,5 +2805,16 @@
             "+ change gacha info popup to scrollable"
          ]
       }
+   },
+   "2023-7-20": {
+      "thao.lethithu": {
+         "reports": [
+            "- DMLCNQA-2245 [UPD65][CN][T]: Parameter 'position' of \"Dragon Runner Lose\" event generate an error message when registering a negative value - done",
+            "- DMLCNQA-2247 [UPD65][CN][T] : Param 'current_level' & 'current_speed' of 'Dragon Runner Lose' event doesn't register the actual value - done",
+            "- DMLCNQA-2214 [UPD65][T] : Param 'purchase_location' of IAP event returns random value after purchasing any IAP islands - done",
+            "- DMLCNQA-2252 [UPD65][CN][T]: Is it intended that 'dragon_purchase_location' reg as '0' when purchase dragon in \"Treasure Hunt Market\" using \"Box Gacha Sequence Market Currency\"? - done",
+            "- DMLCNQA-2246 [UPD65][CN][T]: How to validate parameters 'position' and 'chunk_id' of event \"Dragon Runner Lose (ID:449554)\" value? - done"
+         ]
+      }
    }
 }

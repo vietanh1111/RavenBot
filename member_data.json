@@ -2816,5 +2816,12 @@
             "- DMLCNQA-2246 [UPD65][CN][T]: How to validate parameters 'position' and 'chunk_id' of event \"Dragon Runner Lose (ID:449554)\" value? - done"
          ]
       }
+   },
+   "2023-7-24": {
+      "quy.nguyenngoc": {
+         "reports": [
+            "- last dev meeting and change seat"
+         ]
+      }
    }
 }
